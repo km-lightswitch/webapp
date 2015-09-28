@@ -11,7 +11,7 @@
 <body>
 	<div ng-controller="InstancesController as instancesController">
 		<div class="organizations">
-			<select ng-model="instancesController.currentOrganiztion">
+			<select ng-model="instancesController.currentOrganization">
 				<option ng-repeat="organization in instancesController.organizations" value="{{ organization.organizationId }}">
 					{{ organization.name }}
 				</option>
@@ -22,7 +22,7 @@
 				<th>Instance ID</th>
 				<th>State</th>
 			</tr>
-			<tr ng-repeat="instance in instancesController.instances">
+			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentOrganization">
 				<td>{{ instance.instanceId }}</td>
 				<td>{{ instance.state }}</td>
 			</tr>
