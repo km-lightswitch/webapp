@@ -1,0 +1,22 @@
+<html ng-app="lightswitch">
+	<head>
+		<script src="lib/angular/angular.min.js" type="text/javascript"></script>
+		<script src="js/app.js" type="text/javascript"></script>
+		<script src="js/services/instances.js" type="text/javascript"></script>
+		<script src="js/controllers/instancesController.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div ng-controller="InstancesController as instancesController">
+			<table>
+				<tr>
+					<th>Instance ID</th>
+					<th>State</th>
+				</tr>
+				<tr ng-repeat="instance in instancesController.instances">
+					<td>{{ instance.instanceId }}</td>
+					<td>{{ instance.state }}</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+	</html>
