@@ -1,32 +1,57 @@
+<!DOCTYPE html>
 <html ng-app="lightswitch">
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 	<script src="lib/angular/angular.min.js" type="text/javascript"></script>
+	<script src="lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+	<script src="lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="lib/lodash/lodash.min.js" type="text/javascript"></script>
+
 	<script src="js/app.js" type="text/javascript"></script>
 	<script src="js/services/instances.js" type="text/javascript"></script>
 	<script src="js/services/organizations.js" type="text/javascript"></script>
 	<script src="js/controllers/instancesController.js" type="text/javascript"></script>
+
+	<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="style/app.css" rel="stylesheet" />
 </head>
 
 <body>
-	<div ng-controller="InstancesController as instancesController">
-		<div class="organizations">
-			<select ng-model="instancesController.currentOrganization">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Lightswitch</a>
+			</div>
+		</div>
+
+	</nav>
+	<div ng-controller="InstancesController as instancesController" class="container">
+		<div class="organizations col-sm-3 col-sm-offset-9 text-right">
+			<strong>Organization:</strong>
+			<select ng-model="instancesController.currentOrganization" class="form-control select">
 				<option ng-repeat="organization in instancesController.organizations" value="{{ organization.organizationId }}">
 					{{ organization.name }}
 				</option>
 			</select>
 		</div>
-		<table>
+		<table class="table table-striped col-sm-10">
 			<tr>
 				<th>Instance ID</th>
 				<th>State</th>
 			</tr>
-			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentOrganization">
-				<td>{{ instance.instanceId }}</td>
-				<td>{{ instance.state }}</td>
+			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentOrganization ">
+				<td>
+					<input type="checkbox" class="checkbox" ng-model="instance.isSelected"/>
+					{{ instance.instanceId }}</td>
+				<td class="status {{ instance.state }}">{{ instance.state }}</td>
 			</tr>
 		</table>
+		<div class="instance-actions col-sm-2 col-sm-offset-10 text-right">
+			<a class="btn btn-danger btn-stop" ng-click="instancesController.stop()">Stop</a>
+			<a class="btn btn-primary btn-start" ng-click="instancesController.start()">Start</a>
+		</div>
 	</div>
 </body>
 

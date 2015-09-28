@@ -1,0 +1,22 @@
+body{
+	font-family: 'Arial';
+}
+
+.select{
+	width: auto;
+	min-width: 100px;
+	display: inline-block;
+	margin: 10px 0px;
+}
+
+.checkbox{
+	display: inline-block;
+}
+
+.running{
+	color:green;
+}
+
+.stopped{
+	color:red;
+}
