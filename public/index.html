@@ -37,15 +37,21 @@
 			</select>
 		</div>
 		<table class="table table-striped col-sm-10">
-			<tr>
+			<tr class="table-header">
+				<th class="col-sm-1">
+					<input type="checkbox" ng-model="instancesController.selectAll" class="checkbox" ng-click="instancesController.toggleSelection()"/>
+				</th>
 				<th>Instance ID</th>
-				<th>State</th>
+				<th>Name</th>
+				<th class="col-sm-1">State</th>
 			</tr>
 			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentOrganization ">
-				<td>
-					<input type="checkbox" class="checkbox" ng-model="instance.isSelected"/>
-					{{ instance.instanceId }}</td>
-				<td class="status {{ instance.state }}">{{ instance.state }}</td>
+				<td class="col-sm-1">
+					<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
+				</td>
+				<td>{{ instance.instanceId }}</td>
+				<td></td>
+				<td class="col-sm-1 status {{ instance.state }}">{{ instance.state }}</td>
 			</tr>
 		</table>
 		<div class="instance-actions col-sm-2 col-sm-offset-10 text-right">

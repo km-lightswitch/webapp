@@ -1,27 +1,43 @@
 app.controller("InstancesController", ["instances", "organizations", function (instances, organizations) {
-	var self = this;
+	var controller = this;
 
-	self.instances = instances;
-	self.organizations = organizations;
+	controller.instances = instances;
+	controller.organizations = [{ name: 'All' }].concat(organizations);
 
-	self.start = function () {
-		var updatedInstances = _.map(self.instances, function (instance) {
-			if (instance.organization == self.currentOrganization && instance.isSelected) {
-				instance.state = 'running';
-			}
+	controller.getSelectedInstances = function () {
+		return _.filter(controller.instances, function (instance) {
+			return instance.organization == controller.currentOrganization && instance.isSelected;
+		});
+	}
+
+	controller.getInstancesInCurrentOrganization = function () {
+		return _.filter(controller.instances, function (instance) {
+			return instance.organization == controller.currentOrganization;
+		});
+	}
+
+	controller.start = function () {
+		var updatedInstances = _.map(controller.getSelectedInstances(), function (instance) {
+			instance.state = "running";
 			return instance;
 		});
-		self.instances = updatedInstances;
+		controller.instances = updatedInstances;
 	};
 
-	self.stop = function () {
-		var updatedInstances = _.map(self.instances, function (instance) {
-			if (instance.organization == self.currentOrganization && instance.isSelected) {
-				instance.state = 'stopped';
-			}
+	controller.stop = function () {
+		var updatedInstances = _.map(controller.getSelectedInstances(), function (instance) {
+			instance.state = "stopped";
 			return instance;
 		});
-		self.instances = updatedInstances;
+		controller.instances = updatedInstances;
+	};
+
+	controller.toggleSelection = function () {
+		var updatedInstances = _.map(controller.getInstancesInCurrentOrganization(), function (instance) {
+			instance.isSelected = controller.selectAll;
+			return instance;
+		});
+		controller.instances = updatedInstances;
 	};
 
 }]);
