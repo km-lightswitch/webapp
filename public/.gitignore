@@ -1,1 +1,5 @@
 lib/
+node_modules/
+typings/
+bundle.js
+bundle.css

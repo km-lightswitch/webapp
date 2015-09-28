@@ -1,4 +1,7 @@
-app.controller("InstancesController", ["instances", "organizations", function (instances, organizations) {
+var app = require("../app.js");
+var _ = require("lodash");
+
+var instancesController = app.controller("InstancesController", ["instances", "organizations", function (instances, organizations) {
 	var controller = this;
 
 	controller.instances = instances;
@@ -17,19 +20,15 @@ app.controller("InstancesController", ["instances", "organizations", function (i
 	}
 
 	controller.start = function () {
-		var updatedInstances = _.map(controller.getSelectedInstances(), function (instance) {
+		_.forEach(controller.getSelectedInstances(), function (instance) {
 			instance.state = "running";
-			return instance;
 		});
-		controller.instances = updatedInstances;
 	};
 
 	controller.stop = function () {
-		var updatedInstances = _.map(controller.getSelectedInstances(), function (instance) {
+		_.forEach(controller.getSelectedInstances(), function (instance) {
 			instance.state = "stopped";
-			return instance;
 		});
-		controller.instances = updatedInstances;
 	};
 
 	controller.toggleSelection = function () {
@@ -41,3 +40,5 @@ app.controller("InstancesController", ["instances", "organizations", function (i
 	};
 
 }]);
+
+module.exports = instancesController;
