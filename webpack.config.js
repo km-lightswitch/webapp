@@ -7,6 +7,7 @@ module.exports = {
         path: __dirname,
         filename: "./public/bundle.js"
     },
+    devtool: "#inline-source-map",
     module: {
         loaders: [
             {
@@ -30,6 +31,9 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("./public/bundle.css", {
             allChunks: true
+        }),
+         new webpack.ProvidePlugin({
+            'Promise': 'bluebird'
         })
     ]
 };
