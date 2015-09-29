@@ -1,17 +1,19 @@
 var app = require('../app.js');
 var _ = require('lodash');
 
-var instancesController = app.controller('InstancesController', ['$scope', 'instanceService', 'organizations',
-	function ($scope, instanceService, organizations) {
+var instancesController = app.controller('InstancesController', ['instanceService', 'organizationService',
+	function (instanceService, organizationService) {
 		var controller = this;
 		controller.instances = [];
+		controller.organizations = [{ name: 'All' }];
 		
 		instanceService.getInstances().then(function (data) {
 			controller.instances = data;
-			$scope.$apply();
 		});
 
-		controller.organizations = [{ name: 'All' }].concat(organizations);
+		organizationService.getOrganizations().then(function(data){
+			controller.organizations = controller.organizations.concat(data);
+		})
 
 		controller.getSelectedInstances = function () {
 			return _.filter(controller.instances, function (instance) {
