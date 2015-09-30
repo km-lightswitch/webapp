@@ -1,25 +1,53 @@
 var AWS = require('aws-sdk');
+var _ = require('lodash');
 
+var validateCredentials = function validateCredentials(credentials) {
+    if (!credentials.accessKeyId) { throw new Error("Missing access key id"); }
+    if (!credentials.secretAccessKey) { throw new Error("Missing secret access key"); }
+    if (!credentials.region) { throw new Error("Missing region"); }
+    return true;
+};
+
+var listInstances = function listInstances(credentials) {
+        validateCredentials(credentials);
+
+        var ec2 = new AWS.EC2(credentials);
+        var params = {};
+        return new Promise(function (resolve, reject) {
+            ec2.describeInstances(params, function (error, data) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(toInstances(data));
+                }
+            });
+        });
+    };
+
+function toInstances(data) {
+    var instances = _.map(data.Reservations, function (reservation) {
+        return toInstance(reservation.Instances[0]);
+    });
+    return instances;
+}
+
+function toInstance(instanceData) {
+    var instance = {
+        InstanceId: instanceData.InstanceId,
+        State: instanceData.State.Name,
+        InstanceType: instanceData.InstanceType,
+        AvailabilityZone: instanceData.Placement.AvailabilityZone,
+        PrivateIpAddress: instanceData.PrivateIpAddress
+    };
+
+    if (instanceData.PublicIpAddress) {
+        instance.PublicIpAddress = instanceData.PublicIpAddress;
+    }
+
+    return instance;
+}
 
 module.exports = {
-	validateCredentials: function validateCredentials(credentials) {
-		if (!credentials.accessKeyId) { throw new Error("Missing access key id"); }
-		if (!credentials.secretAccessKey) { throw new Error("Missing secret access key"); }
-		if (!credentials.region) { throw new Error("Missing region"); }
-		return true;
-	},
-	
-	listInstances: function listInstances(credentials) {
-		validateCredentials(credentials);
-
-		var ec2 = new AWS.EC2(credentials);
-		return ec2.describeInstances(function (error, data) {
-			if (error) {
-				console.log(error);
-				throw error;
-			} else {
-				return data;
-			}
-		});
-	},
+    validateCredentials: validateCredentials,
+    listInstances: listInstances
 };
