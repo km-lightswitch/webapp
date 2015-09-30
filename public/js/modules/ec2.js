@@ -9,20 +9,20 @@ var validateCredentials = function validateCredentials(credentials) {
 };
 
 var listInstances = function listInstances(credentials) {
-        validateCredentials(credentials);
+    validateCredentials(credentials);
 
-        var ec2 = new AWS.EC2(credentials);
-        var params = {};
-        return new Promise(function (resolve, reject) {
-            ec2.describeInstances(params, function (error, data) {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(toInstances(data));
-                }
-            });
+    var ec2 = new AWS.EC2(credentials);
+    var params = {};
+    return new Promise(function (resolve, reject) {
+        ec2.describeInstances(params, function (error, data) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(toInstances(data));
+            }
         });
-    };
+    });
+};
 
 function toInstances(data) {
     var instances = _.map(data.Reservations, function (reservation) {
