@@ -39,13 +39,6 @@ function toInstance(instanceData) {
         AvailabilityZone: instanceData.Placement.AvailabilityZone,
         PrivateIpAddress: instanceData.PrivateIpAddress
     };
-    
-    /*
-      Tags:
-   [ { Key: 'Name', Value: 'mongo2' },
-     { Key: 'app', Value: 'mongo' },
-     { Key: 'env', Value: 'live' } ],
-    */
 
     var instanceTags = instanceData.Tags;
     if (instanceTags.length > 0) {
