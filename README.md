@@ -20,5 +20,4 @@ or
 ## if you have installed webpack globally use
 > webpack
 
-
-
+Create config/default.json (refer config/default.json.example) for use by the API
