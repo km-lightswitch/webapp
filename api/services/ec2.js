@@ -8,7 +8,7 @@ var validateCredentials = function validateCredentials(credentials) {
     return true;
 };
 
-var listInstances = function listInstances(credentials) {
+var getInstances = function listInstances(credentials) {
     validateCredentials(credentials);
 
     var ec2 = new AWS.EC2(credentials);
@@ -58,5 +58,5 @@ function toInstance(instanceData) {
 
 module.exports = {
     validateCredentials: validateCredentials,
-    listInstances: listInstances
+    getInstances: getInstances
 };
