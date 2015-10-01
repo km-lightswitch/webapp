@@ -1,0 +1,11 @@
+{
+	"development": {
+		"database": "lightswitch_development",
+		"username": "USERNAME_HERE",
+		"password": "PASSWORD_HERE",
+		"options": {
+		"host": "HOSTNAME_HERE",
+		"dialect": "mysql"
+		}
+	}
+}
