@@ -1,0 +1,7 @@
+{
+	"credentials": {
+		"accessKeyId": "aki",
+		"secretAccessKey": "sak",
+		"region": "eu-west-1"
+	}
+}

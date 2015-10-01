@@ -45,9 +45,9 @@
 				<td class="col-sm-1">
 					<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
 				</td>
-				<td>{{ instance.instanceId }}</td>
-				<td></td>
-				<td class="col-sm-1 status {{ instance.state }}">{{ instance.state }}</td>
+				<td>{{ instance.InstanceId }}</td>
+				<td>{{ instance.Tags.Name }}</td>
+				<td class="col-sm-1 status {{ instance.State }}">{{ instance.State }}</td>
 			</tr>
 		</table>
 		<div class="instance-actions col-sm-2 col-sm-offset-10 text-right">

@@ -1,5 +1,6 @@
 var AWS = require('aws-sdk');
 var _ = require('lodash');
+var config = require('config');
 
 var validateCredentials = function validateCredentials(credentials) {
     if (!credentials.accessKeyId) { throw new Error("Missing access key id"); }
@@ -8,7 +9,9 @@ var validateCredentials = function validateCredentials(credentials) {
     return true;
 };
 
-var getInstances = function listInstances(credentials) {
+var credentials = config.get('credentials');
+
+var getInstances = function listInstances() {
     validateCredentials(credentials);
 
     var ec2 = new AWS.EC2(credentials);
