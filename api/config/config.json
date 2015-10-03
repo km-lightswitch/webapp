@@ -1,0 +1,8 @@
+{
+	"development": {
+		"databaseURL": "mongodb://localhost/lightswitch_development"
+	},
+	"test": {
+		"databaseURL": "mongodb://localhost/lightswitch_test"
+	}
+}
