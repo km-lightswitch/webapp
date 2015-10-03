@@ -30,7 +30,8 @@
     "webpack": "^1.12.2"
   },
   "devDependencies": {
+    "mongodb": "^2.0.45",
     "chai": "*",
-    "mocha": "*"    
+    "mocha": "*"
   }
 }
