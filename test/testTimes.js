@@ -63,3 +63,33 @@ describe('Times', function () {
 		});
 	})
 });
+
+describe('Times', function () {
+	describe('#timeOfDayOffset()', function () {
+		it('returns today and UTC time when time and timezone are appropriate', function () {
+			expect(times.timeOfDayOffset("10:00", "+05:30")).to.eql({
+				"day": 0, "time": 270
+			});
+
+			expect(times.timeOfDayOffset("5:30", "+05:30")).to.eql({
+				"day": 0, "time": 0
+			});
+			
+			expect(times.timeOfDayOffset("14:30", "-09:00")).to.eql({
+				"day": 0, "time": ((23 * 60) + 30)
+			});			
+		});
+		
+		it('returns yesterday and UTC time when time and timezone are appropriate', function(){
+			expect(times.timeOfDayOffset("5:00", "+05:30")).to.eql({
+				"day": -1, "time": ((23 * 60) + 30)
+			});			
+		});
+		
+		it('returns tomorrow and UTC time when time and timezone are appropriate', function(){
+			expect(times.timeOfDayOffset("22:00", "-03:00")).to.eql({
+				"day": 1, "time": 60
+			});			
+		});		
+	});
+});

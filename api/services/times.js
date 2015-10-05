@@ -22,8 +22,8 @@ var minutesInADay = 24 * 60;
 
 var timeOfDayOffset = function timeOfDayOffset(str, offset) {
 	var tzPlus = offset[0];
-	var tzOffsetMinutes = timeOfDay(offset.slice(1));
-	var timeOfDay = timeOfDay(str);
+	var tzOffsetMinutes = this.timeOfDay(offset.slice(1));
+	var timeOfDay = this.timeOfDay(str);
 	if (tzPlus == '+') {
 		var calculated = timeOfDay - tzOffsetMinutes;
 		return (calculated < 0 ?
