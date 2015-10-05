@@ -6,12 +6,25 @@ class Schedule {
 		this.name = name;
 		this.schedule = schedule;
 	}
+	
+	weekdays(idx) {
+		return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][idx];
+	}
 
 	up(atTimeString) {
-		var atTime = moment(atTimeString);
-		var dayOfWeek = atTime.day();
+		var atTimeOfDay = moment(atTimeString).format('hh:mm');
+		var dayOfWeek = this.weekdays(atTimeString.day());
+		console.log(dayOfWeek);
 		var scheduleForDay = this.schedule.schedules[dayOfWeek];
-		return false;
+		console.log(scheduleForDay);
+		
+		return this.isBetween(this.timeOfDay(atTimeOfDay), this.strToTimes(scheduleForDay));
+	}
+	
+	isBetween(time, aryTimes) {
+		var min = Math.min(...aryTimes);
+		var max = Math.max(...aryTimes);
+		return (min <= time) && (time <= max);
 	}
 
 	timeOfDay(str) {
