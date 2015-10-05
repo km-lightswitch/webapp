@@ -12,13 +12,10 @@ class Schedule {
 	}
 
 	up(atTimeString) {
-		var atTimeOfDay = moment(atTimeString).format('hh:mm');
-		var dayOfWeek = this.weekdays(atTimeString.day());
-		console.log(dayOfWeek);
+		var atTimeOfDay = moment(atTimeString);
+		var dayOfWeek = this.weekdays(atTimeOfDay.day());
 		var scheduleForDay = this.schedule.schedules[dayOfWeek];
-		console.log(scheduleForDay);
-		
-		return this.isBetween(this.timeOfDay(atTimeOfDay), this.strToTimes(scheduleForDay));
+		return this.isBetween(this.timeOfDay(atTimeOfDay.format('hh:mm')), this.strToTimes(scheduleForDay));
 	}
 	
 	isBetween(time, aryTimes) {
