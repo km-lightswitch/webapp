@@ -12,10 +12,11 @@ class Schedule {
 	}
 
 	up(atTimeString) {
-		var atTimeOfDay = moment(atTimeString);
+		var atTimeOfDay = moment(atTimeString).utc();
 		var dayOfWeek = this.weekdays(atTimeOfDay.day());
 		var scheduleForDay = this.schedule.schedules[dayOfWeek];
-		var test = this.isBetween(this.timeOfDay(atTimeOfDay.format('hh:mm')), this.strToTimes(scheduleForDay));
+		var scheduleTimeZone = this.schedule.timezone;
+		var test = this.isBetween(this.timeOfDay(atTimeOfDay.format('hh:mm')), this.strToTimes(scheduleForDay, scheduleTimeZone));
 		return (this.schedule.nature == 'uptime' ? test : !test);
 	}
 	
@@ -30,10 +31,21 @@ class Schedule {
 		var minutes = parseInt(str.split(':')[1]);
 		return ((hours * 60) + minutes);
 	}
+	
+	timeOfDayOffset(str, offset) {
+		var tzPlus = offset[0];
+		var tzOffsetMinutes = this.timeOfDay(offset.slice(1));
+		var timeOfDay = this.timeOfDay(str);
+		if (tzPlus == '+') {
+			return timeOfDay - tzOffsetMinutes;
+		} else {
+			return timeOfDay + tzOffsetMinutes;			
+		}
+	}
 
-	strToTimes(strArray) {
+	strToTimes(strArray, offset) {
 		return _.map(strArray, (timeStr) => {
-			return this.timeOfDay(timeStr);
+			return this.timeOfDayOffset(timeStr, offset);
 		});
 	}
 

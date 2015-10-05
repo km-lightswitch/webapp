@@ -42,8 +42,8 @@ describe('Schedule', function() {
 describe('Schedule', function() {
 	describe('#strToTimes', function(){
 		it('converts an array of time strings to an array of times since midnight', function(){
-			expect(weekly.WEEKDAYS_UPTIME.strToTimes(['00:01'])).to.eql([1]);
-			expect(weekly.WEEKDAYS_UPTIME.strToTimes(['00:01', '22:23'])).to.eql([1, ((22 * 60) + 23)]);
+			expect(weekly.WEEKDAYS_UPTIME.strToTimes(['00:01'], "+00:00")).to.eql([1]);
+			expect(weekly.WEEKDAYS_UPTIME.strToTimes(['00:01', '22:23'], "+00:00")).to.eql([1, ((22 * 60) + 23)]);
 		});
 	})
 });
