@@ -3,3 +3,5 @@ typings/
 *.log.idea/
 .idea/
 .vscode/
+.DS_Store
+jsconfig.json

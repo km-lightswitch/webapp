@@ -25,13 +25,14 @@
     "koa-file-server": "^2.3.1",
     "koa-router": "^5.2.1",
     "lodash": "^3.10.1",
+    "moment-timezone": "^0.4.0",
     "mongoose": "^4.1.9",
     "style-loader": "^0.12.4",
     "webpack": "^1.12.2"
   },
   "devDependencies": {
-    "mongodb": "^2.0.45",
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "mocha-traceur": "^2.1.0"
   }
 }
