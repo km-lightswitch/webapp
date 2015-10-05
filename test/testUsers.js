@@ -25,5 +25,5 @@ describe('User', function () {
 	});
 });
 
-var dbHelper = require('./dbHelper.js');
-dbHelper.dropCollection("users");
+// var dbHelper = require('./dbHelper.js');
+// dbHelper.dropCollection("users");
