@@ -15,7 +15,8 @@ class Schedule {
 		var atTimeOfDay = moment(atTimeString);
 		var dayOfWeek = this.weekdays(atTimeOfDay.day());
 		var scheduleForDay = this.schedule.schedules[dayOfWeek];
-		return this.isBetween(this.timeOfDay(atTimeOfDay.format('hh:mm')), this.strToTimes(scheduleForDay));
+		var test = this.isBetween(this.timeOfDay(atTimeOfDay.format('hh:mm')), this.strToTimes(scheduleForDay));
+		return (this.schedule.nature == 'uptime' ? test : !test);
 	}
 	
 	isBetween(time, aryTimes) {
