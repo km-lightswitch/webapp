@@ -1,6 +1,11 @@
 {
 	"development": {
-		"databaseURL": "mongodb://localhost/lightswitch_development"
+		"databaseURL": "mongodb://localhost/lightswitch_development",
+		"credentials": {
+			"accessKeyId": "aki",
+			"secretAccessKey": "sak",
+			"region": "eu-west-1"
+		}
 	},
 	"test": {
 		"databaseURL": "mongodb://localhost/lightswitch_test"

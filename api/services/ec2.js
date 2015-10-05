@@ -1,6 +1,7 @@
 var AWS = require('aws-sdk');
 var _ = require('lodash');
-var config = require('config');
+var env = process.env.NODE_ENV || 'development';
+var config = require('../config/config.json')[env];
 
 var validateCredentials = function validateCredentials(credentials) {
     if (!credentials.accessKeyId) { throw new Error("Missing access key id"); }
@@ -9,7 +10,7 @@ var validateCredentials = function validateCredentials(credentials) {
     return true;
 };
 
-var credentials = config.get('credentials');
+var credentials = config.credentials;
 
 var getInstances = function listInstances() {
     validateCredentials(credentials);

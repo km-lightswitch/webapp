@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "webpack",
     "start": "node api/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/mocha --compilers js:mocha-traceur test"
   },
   "author": "Krishnan Mani",
   "license": "MIT",
