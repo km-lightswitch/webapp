@@ -30,16 +30,6 @@ describe('Schedule', function () {
 });
 
 describe('Schedule', function() {
-	describe('#timeOfDay', function(){
-		it('parses a time of day as number of minutes since midnight', function(){
-			expect(weekly.WEEKDAYS_UPTIME.timeOfDay('00:01')).to.equal(1);
-			expect(weekly.WEEKDAYS_UPTIME.timeOfDay('04:30')).to.equal(270);
-			expect(weekly.WEEKDAYS_UPTIME.timeOfDay('23:59')).to.equal((23 * 60) + 59);
-		});
-	})
-});
-
-describe('Schedule', function() {
 	describe('#strToTimes', function(){
 		it('converts an array of time strings to an array of times since midnight', function(){
 			expect(weekly.WEEKDAYS_UPTIME.strToTimes(['00:01'], "+00:00")).to.eql([1]);
