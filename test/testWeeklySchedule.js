@@ -1,4 +1,3 @@
-'use strict'
 process.env.NODE_ENV = 'test';
 var expect = require('chai').expect
 	, moment = require('moment-timezone');
@@ -25,6 +24,20 @@ describe('Schedule', function () {
 		it('for DOWNTIME schedules, reports the status as up at time T outside downtime hours', function () {
 			var sundayMorning10AMIST = moment("2015-10-04T10:00:00+05:30");
 			expect(weekly.WEEKENDS_DOWNTIME.up(sundayMorning10AMIST)).to.be.true;
+		});
+	})
+});
+
+describe('Schedule', function() {
+	describe('#getEvent()', function(){
+		it('emits an event when there is a state change within next N minutes', function(){
+			var mondayMorningFiveTo10AMIST = moment("2015-10-05T09:55:00+05:30");
+			expect(weekly.WEEKDAYS_UPTIME.getEvent(mondayMorningFiveTo10AMIST, 8)).to.eql(
+				{
+					"state": "up",
+					"at": "2015-10-05T04:33:00+00:00"
+				}
+			);			
 		});
 	})
 });

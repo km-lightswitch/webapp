@@ -18,6 +18,7 @@
     "bluebird": "^2.10.1",
     "compress": "^0.99.0",
     "config": "^1.16.0",
+    "cron": "^1.0.9",
     "css-loader": "^0.19.0",
     "extract-text-webpack-plugin": "^0.8.2",
     "gulp": "^3.9.0",
