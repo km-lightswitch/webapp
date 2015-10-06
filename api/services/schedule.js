@@ -12,16 +12,28 @@ class Schedule {
 		return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][idx];
 	}
 
+	down(atTimeString) {
+		return !(this.up(atTimeString));
+	}
+
 	up(atTimeString) {
 		var atTimeOfDay = moment(atTimeString).utc();
 		var scheduleTimeZone = this.schedule.timezone;
 		var timeInScheduleTZ = atTimeOfDay.utcOffset(scheduleTimeZone);
 		var dayOfWeek = this.weekdays(timeInScheduleTZ.day());
 		var scheduleForDay = this.schedule.schedules[dayOfWeek];
-		var test = this.isBetween(times.timeOfDay(timeInScheduleTZ.format('hh:mm')), this.strToTimes(scheduleForDay));
+		var test = this.isBetween(times.timeOfDay(timeInScheduleTZ.format('HH:mm')), this.strToTimes(scheduleForDay));
 		return (this.schedule.nature == 'uptime' ? test : !test);
 	}
 	
+	downAtTime(timeMoment) {
+		return !(this.upAtTime(timeMoment));
+	}
+
+	upAtTime(timeMoment) {
+		return this.up(timeMoment.format());
+	}
+
 	uptoMinutesLimit() {
 		return 10;
 	}
@@ -30,33 +42,34 @@ class Schedule {
 		if (withinMinutes > this.uptoMinutesLimit()) {
 			throw new Error('specify a time limit not exceeding ' + this.uptoMinutesLimit() + ' minutes');
 		}
-		
-		var initialState = this.up(atTimeString);
-		var initialMoment = moment(atTimeString).utc();
+
+		var initialMoment = moment(atTimeString);
+		var initialState = this.upAtTime(initialMoment);
 
 		var step = 1; //minutes
-		var counter = 1;
 		var accumulator = 0;
-		var instants = [initialMoment];
+		var instants = [ initialMoment ];
 		while (accumulator < withinMinutes) {
 			var nextInstant = initialMoment.add(step, 'minutes');
 			instants.push(nextInstant);
-			counter += 1;
 			accumulator += step;
 		}
-		
+
 		var foundStateChangeAt = _.find(instants, (atMoment) => {
-			var stateAt = this.up(atMoment.format());
+			var stateAt = this.upAtTime(atMoment);
 			return (stateAt != initialState);
 		});
 
         if (foundStateChangeAt === undefined) {
 			return undefined;
 		} else {
-			var state = this.up(foundStateChangeAt.format());
+			var state = this.upAtTime(foundStateChangeAt);
+			if (state == initialState) {
+				throw new Error('inconsistent state change');
+			}
 			return {
 				"state": (state ? "up" : "down"),
-				"at": foundStateChangeAt.format()
+				"at": foundStateChangeAt.utc().format()
 			};
 		}
 	}
@@ -64,7 +77,8 @@ class Schedule {
 	isBetween(time, aryTimes) {
 		var min = Math.min(...aryTimes);
 		var max = Math.max(...aryTimes);
-		return (min <= time) && (time <= max);
+		
+		return ((min <= time) && (time <= max));
 	}
 
 	strToTimes(strArray) {

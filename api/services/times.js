@@ -2,7 +2,7 @@ var moment = require('moment-timezone');
 
 var timeOfDay = function timeOfDay(str) {
 	if ((str.split(':')).length != 2) {
-		throw new TypeError("Invalid hh:mm string");
+		throw new TypeError("Invalid HH:mm string");
 	}
 
 	var hours = parseInt(str.split(':')[0]);
