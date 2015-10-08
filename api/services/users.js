@@ -1,23 +1,13 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose-simple');
 
-var env = process.env.NODE_ENV || "development";
-var config = require("../config/config.json")[env];
-mongoose.connect(config.databaseURL);
-
-var Schema = mongoose.Schema;
-var userSchema = new Schema({
-	name: String,
-	email: { type: String, index: true }
-});
-
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User');
 
 var find = function find(email) {
 		return User.findOne({ 'email': email }, 'name email').exec();
 };
 
 var register = function register(user) {
-	var userDoc = new User({
+	var userDoc = new User().fromDoc({
 		name: user.name,
 		email: user.email
 	});

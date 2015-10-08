@@ -4,4 +4,5 @@ typings/
 .idea/
 .vscode/
 .DS_Store
+*.log
 jsconfig.json
