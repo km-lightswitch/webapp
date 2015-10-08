@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var expect = chai.expect;
 var moment = require('moment-timezone');
-var times = require('../api/services/times.js');
+var times = require('../../api/services/times.js');
 
 describe('Times', function () {
 	describe('#toUTC()', function () {
