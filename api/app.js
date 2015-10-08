@@ -4,12 +4,11 @@ var config = require('config');
 var db = require('./db');
 
 var app = koa();
+db.connect();
 
 app.use(require('koa-file-server')({
   root: 'public'
 }));
-
-db.init(app);
 
 app
   .use(router.routes())

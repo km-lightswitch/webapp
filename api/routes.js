@@ -1,7 +1,7 @@
 var Router = require('koa-router')
 var router = new Router();
-var instancesController = require('./controllers/instancesController');
-var organizationsController = require('./controllers/organizationsController');
+var instancesController = require('./controllers/instances-controller');
+var organizationsController = require('./controllers/organizations-controller');
 
 var instancesRoutes = new Router();
 instancesRoutes.get('/', instancesController.getInstances);

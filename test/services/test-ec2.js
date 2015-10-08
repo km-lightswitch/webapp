@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var ec2 = require('../api/services/ec2.js');
+var ec2 = require('../../api/services/ec2.js');
 
 describe('EC2', function() {
 	describe('#validateCredentials()', function() {

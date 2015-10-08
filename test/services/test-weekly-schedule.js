@@ -1,7 +1,7 @@
 var expect = require('chai').expect
 	, moment = require('moment-timezone');
 
-var weekly = require('../api/services/weeklySchedule');
+var weekly = require('../../api/services/weekly-schedule');
 
 describe('Schedule', function () {
 	describe('#up', function () {
