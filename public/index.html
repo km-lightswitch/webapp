@@ -20,6 +20,12 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Lightswitch</a>
 			</div>
+			<div class="login-status" ng-controller="UserController as userController">
+				<a class="user-name">
+					{{ userController.user.name }}
+				</a>
+				<img ng-src="{{userController.user.picture}}" class="user-pic" />
+			</div>
 		</div>
 
 	</nav>
@@ -35,7 +41,8 @@
 		<table class="table table-striped col-sm-10">
 			<tr class="table-header">
 				<th class="col-sm-1">
-					<input type="checkbox" ng-model="instancesController.selectAll" class="checkbox" ng-click="instancesController.toggleSelection()"/>
+					<input type="checkbox" ng-model="instancesController.selectAll" class="checkbox" ng-click="instancesController.toggleSelection()"
+					/>
 				</th>
 				<th>Instance ID</th>
 				<th>Name</th>

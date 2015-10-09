@@ -20,3 +20,13 @@ body{
 .stopped{
 	color:red;
 }
+
+.login-status{
+	text-align: right;
+}
+
+.login-status a {
+	text-decoration: none;
+	cursor: pointer;
+	margin: 5px;
+}
