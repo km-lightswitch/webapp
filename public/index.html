@@ -17,51 +17,27 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div class="navbar-header col-sm-4">
+			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Lightswitch</a>
 			</div>
-			<div class="login-status col-sm-8" ng-controller="UserController as userController">
-				<a class="user-name">
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
+					<li><a href="#/teams">Teams</a></li>
+				</ul>
+
+				<div class="login-status" ng-controller="UserController as userController">
+					<a class="user-name">
 					{{ userController.user.name }}
 				</a>
-				<img ng-src="{{userController.user.picture}}" class="user-pic" />
+					<img ng-src="{{userController.user.picture}}" class="user-pic" />
+				</div>
 			</div>
-		</div>
 
+		</div>
 	</nav>
-	<div ng-controller="InstancesController as instancesController" class="container">
-		<div class="teams col-sm-3 col-sm-offset-9 text-right">
-			<strong>Team:</strong>
-			<select ng-model="instancesController.currentTeam" class="form-control select">
-				<option ng-repeat="team in instancesController.teams" value="{{ team.id }}">
-					{{ team.name }}
-				</option>
-			</select>
-		</div>
-		<table class="table table-striped col-sm-10">
-			<tr class="table-header">
-				<th class="col-sm-1">
-					<input type="checkbox" ng-model="instancesController.selectAll" class="checkbox" ng-click="instancesController.toggleSelection()"
-					/>
-				</th>
-				<th>Instance ID</th>
-				<th>Name</th>
-				<th class="col-sm-1">State</th>
-			</tr>
-			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
-				<td class="col-sm-1">
-					<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
-				</td>
-				<td>{{ instance.InstanceId }}</td>
-				<td>{{ instance.Tags.Name }}</td>
-				<td class="col-sm-1 status {{ instance.State }}">{{ instance.State }}</td>
-			</tr>
-		</table>
-		<div class="instance-actions col-sm-2 col-sm-offset-10 text-right">
-			<a class="btn btn-danger btn-stop" ng-click="instancesController.stop()">Stop</a>
-			<a class="btn btn-primary btn-start" ng-click="instancesController.start()">Start</a>
-		</div>
-	</div>
+	<div ng-view/>
 </body>
 
 </html>

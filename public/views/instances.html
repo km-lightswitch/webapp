@@ -1,0 +1,35 @@
+<div ng-controller="InstancesController as instancesController" class="container">
+	<div class="teams col-sm-3 col-sm-offset-9 text-right">
+		<strong>Team:</strong>
+		<select ng-model="instancesController.currentTeam" class="form-control select">
+			<option ng-repeat="team in instancesController.teams" value="{{ team.id }}">
+				{{ team.name }}
+			</option>
+		</select>
+	</div>
+	<table class="table table-striped col-sm-10">
+		<tr class="table-header">
+			<th class="col-sm-1">
+				<input type="checkbox" ng-model="instancesController.selectAll" class="checkbox" ng-click="instancesController.toggleSelection()"
+				/>
+			</th>
+			<th>Instance ID</th>
+			<th>Name</th>
+			<th class="col-sm-2">Environment</th>
+			<th class="col-sm-1">State</th>
+		</tr>
+		<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
+			<td class="col-sm-1">
+				<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
+			</td>
+			<td>{{ instance.InstanceId }}</td>
+			<td>{{ instance.Name }}</td>
+			<td class="col-sm-2">{{ instance.Environment }}</td>
+			<td class="col-sm-1 status {{ instance.State }}">{{ instance.State }}</td>
+		</tr>
+	</table>
+	<div class="instance-actions col-sm-2 col-sm-offset-10 text-right">
+		<a class="btn btn-danger btn-stop" ng-click="instancesController.stop()">Stop</a>
+		<a class="btn btn-primary btn-start" ng-click="instancesController.start()">Start</a>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+<div ng-controller="TeamController as teamController" class="container">
+
+	<table class="table table-striped col-sm-10">
+		<tr class="table-header">
+			<th>Name</th>
+			<th class="col-sm-2">State</th>
+		</tr>
+		<tr ng-repeat="team in teamController.teams">
+			<td>{{ team.name }}</td>
+			<td class="col-sm-2">
+				<a class="btn btn-warning btn btn-edit" ng-click="teamController.edit()">Edit</a>
+				<a class="btn btn-danger btn btn-delete" ng-click="teamController.delete()">Delete</a>
+			</td>
+		</tr>
+	</table>
+
+</div>

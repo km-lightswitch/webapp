@@ -1,15 +1,14 @@
-var app = require('../app.js');
-var _ = require('lodash');
+'user strict'
+class UserController {
 
-var userController = app.controller('UserController', ['userService',
-	function (userService) {
-		var controller = this;
-		controller.user = {};
-
-		userService.getUser().then(function (data) {
-			controller.user = data;
-		});
+	constructor(userService) {
+		this.user = {};
+		
+		userService.getUser()
+			.then((data) => {
+				this.user = data;
+			});
 	}
-]);
+}
 
-module.exports = userController;
+module.exports = UserController;

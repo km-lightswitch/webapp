@@ -1,53 +1,52 @@
-var app = require('../app.js');
+'use strict'
 var _ = require('lodash');
 
-var instancesController = app.controller('InstancesController', ['instanceService', 'teamService',
-	function (instanceService, teamService) {
-		var controller = this;
-		controller.instances = [];
-		controller.teams = [{ name: 'All' }];
-		
-		instanceService.getInstances().then(function (data) {
-			controller.instances = data;
+class InstancesController {
+
+	constructor(instanceService, teamService) {
+		this.instances = [];
+		this.teams = [{ name: 'All' }];
+
+		instanceService.getInstances().then((data) => {
+			this.instances = data;
 		});
 
-		teamService.getTeams().then(function(data){
-			controller.teams = controller.teams.concat(data);
+		teamService.getTeams().then((data) => {
+			this.teams = this.teams.concat(data);
 		})
-
-		controller.getSelectedInstances = function () {
-			return _.filter(controller.instances, function (instance) {
-				return instance.team === controller.currentTeam && instance.isSelected;
-			});
-		}
-
-		controller.getInstancesInCurrentTeam = function () {
-			return _.filter(controller.instances, function (instance) {
-				return instance.team === controller.currentTeam;
-			});
-		}
-
-		controller.start = function () {
-			_.forEach(controller.getSelectedInstances(), function (instance) {
-				instance.state = 'running';
-			});
-		};
-
-		controller.stop = function () {
-			_.forEach(controller.getSelectedInstances(), function (instance) {
-				instance.state = 'stopped';
-			});
-		};
-
-		controller.toggleSelection = function () {
-			var updatedInstances = _.map(controller.getInstancesInCurrentTeam(), function (instance) {
-				instance.isSelected = controller.selectAll;
-				return instance;
-			});
-			controller.instances = updatedInstances;
-		};
-
 	}
-]);
 
-module.exports = instancesController;
+	getSelectedInstances() {
+		return _.filter(this.instances, (instance) => {
+			return instance.team === this.currentTeam && instance.isSelected;
+		});
+	}
+
+	getInstancesInCurrentTeam() {
+		return _.filter(this.instances, (instance) => {
+			return instance.team === this.currentTeam;
+		});
+	}
+
+	start() {
+		_.forEach(this.getSelectedInstances(), (instance) => {
+			instance.state = 'running';
+		});
+	}
+
+	stop() {
+		_.forEach(this.getSelectedInstances(), (instance) => {
+			instance.state = 'stopped';
+		});
+	}
+
+	toggleSelection() {
+		var updatedInstances = _.map(this.getInstancesInCurrentTeam(), (instance) => {
+			instance.isSelected = this.selectAll;
+			return instance;
+		});
+		this.instances = updatedInstances;
+	}
+}
+
+module.exports = InstancesController;
