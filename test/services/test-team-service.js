@@ -56,6 +56,22 @@ describe('Team', function () {
 		});
 	});
 
+	describe('return teams', function () {
+		it('for owner', function* () {
+			let owner = "user5@test.com";
+			yield teamService.create({ "name": "team5", "owner": owner });
+			let teams = yield teamService.getTeams(owner);
+			expect(teams.length).to.equal(1);
+		});
+
+		it('for member', function* () {
+			let member = "member7@test.com";
+			yield teamService.create({ "name": "team6", "owner": "user6@test.com", "members": [member] });
+			let teams = yield teamService.getTeams(member);
+			expect(teams.length).to.equal(1);
+		});
+	});
+
 	after(function () {
 		mongoose.connection.close();
 	})

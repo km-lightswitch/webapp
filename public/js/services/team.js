@@ -1,13 +1,13 @@
 var app = require("../app.js");
 
-var organizationService = app.service('organizationService', ['$http', '$q',
+var teamService = app.service('teamService', ['$http', '$q',
 	function ($http, $q) {
 		return {
-			getOrganizations: function () {
+			getTeams: function () {
 				return $q(function (resolve, reject) {
 					$http({
 						method: 'GET',
-						url: '/api/organizations'
+						url: '/api/teams'
 					}).then(function successCallback(response) {
 						resolve(response.data);
 					}, function errorCallback(response) {
@@ -21,4 +21,4 @@ var organizationService = app.service('organizationService', ['$http', '$q',
 ]);
 
 
-module.exports = organizationService;
+module.exports = teamService;

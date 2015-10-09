@@ -17,10 +17,10 @@
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<div class="navbar-header">
+			<div class="navbar-header col-sm-4">
 				<a class="navbar-brand" href="#">Lightswitch</a>
 			</div>
-			<div class="login-status" ng-controller="UserController as userController">
+			<div class="login-status col-sm-8" ng-controller="UserController as userController">
 				<a class="user-name">
 					{{ userController.user.name }}
 				</a>
@@ -30,11 +30,11 @@
 
 	</nav>
 	<div ng-controller="InstancesController as instancesController" class="container">
-		<div class="organizations col-sm-3 col-sm-offset-9 text-right">
-			<strong>Organization:</strong>
-			<select ng-model="instancesController.currentOrganization" class="form-control select">
-				<option ng-repeat="organization in instancesController.organizations" value="{{ organization.organizationId }}">
-					{{ organization.name }}
+		<div class="teams col-sm-3 col-sm-offset-9 text-right">
+			<strong>Team:</strong>
+			<select ng-model="instancesController.currentTeam" class="form-control select">
+				<option ng-repeat="team in instancesController.teams" value="{{ team.id }}">
+					{{ team.name }}
 				</option>
 			</select>
 		</div>
@@ -48,7 +48,7 @@
 				<th>Name</th>
 				<th class="col-sm-1">State</th>
 			</tr>
-			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentOrganization ">
+			<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
 				<td class="col-sm-1">
 					<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
 				</td>

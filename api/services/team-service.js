@@ -5,7 +5,7 @@ var Team = require('../models/team');
 class TeamService {
 
 	* getTeams(member) {
-		return yield Team.find({ 'member': member }, 'name owner members').exec();
+		return yield Team.find({ $or: [{ 'members': member }, { 'owner': member }] }, 'name owner members').exec();
 	}
 
 	* getOwnedTeams(owner) {

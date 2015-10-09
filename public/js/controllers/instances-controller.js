@@ -1,29 +1,29 @@
 var app = require('../app.js');
 var _ = require('lodash');
 
-var instancesController = app.controller('InstancesController', ['instanceService', 'organizationService',
-	function (instanceService, organizationService) {
+var instancesController = app.controller('InstancesController', ['instanceService', 'teamService',
+	function (instanceService, teamService) {
 		var controller = this;
 		controller.instances = [];
-		controller.organizations = [{ name: 'All' }];
+		controller.teams = [{ name: 'All' }];
 		
 		instanceService.getInstances().then(function (data) {
 			controller.instances = data;
 		});
 
-		organizationService.getOrganizations().then(function(data){
-			controller.organizations = controller.organizations.concat(data);
+		teamService.getTeams().then(function(data){
+			controller.teams = controller.teams.concat(data);
 		})
 
 		controller.getSelectedInstances = function () {
 			return _.filter(controller.instances, function (instance) {
-				return instance.organization == controller.currentOrganization && instance.isSelected;
+				return instance.team === controller.currentTeam && instance.isSelected;
 			});
 		}
 
-		controller.getInstancesInCurrentOrganization = function () {
+		controller.getInstancesInCurrentTeam = function () {
 			return _.filter(controller.instances, function (instance) {
-				return instance.organization == controller.currentOrganization;
+				return instance.team === controller.currentTeam;
 			});
 		}
 
@@ -40,7 +40,7 @@ var instancesController = app.controller('InstancesController', ['instanceServic
 		};
 
 		controller.toggleSelection = function () {
-			var updatedInstances = _.map(controller.getInstancesInCurrentOrganization(), function (instance) {
+			var updatedInstances = _.map(controller.getInstancesInCurrentTeam(), function (instance) {
 				instance.isSelected = controller.selectAll;
 				return instance;
 			});
