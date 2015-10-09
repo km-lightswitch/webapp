@@ -14,12 +14,7 @@ var Db = {
 
 		this.connection = mongoose.connect(`mongodb://${host}:${port}/${database}`);
 		return this.connection;
-	},
-
-	getModel: function (name) {
-		var schema = require('./schemas/' + name);
-		return this.connection.model(name, schema);
-	},
-}
+	}
+};
 
 module.exports = Db;

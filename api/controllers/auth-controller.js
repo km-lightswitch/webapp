@@ -19,10 +19,6 @@ var authController = {
 		yield next;
 	},
 
-	success: function* (next) {
-		this.body = 'success';
-	},
-
 	failure: function* (next) {
 		this.body = 'failed';
 	}

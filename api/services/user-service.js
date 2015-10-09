@@ -9,8 +9,13 @@ class UserService {
 	}
 
 	* register(user) {
+		var name;
+		if (user.displayName) {
+			name = user.displayName
+		} else name = user.name.givenName;
+		
 		var userDoc = User({
-			displayName: user.displayName,
+			name: name,
 			email: user.email
 		});
 		return yield userDoc.save();
