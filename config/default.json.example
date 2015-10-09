@@ -1,4 +1,16 @@
 {
+	"db": {
+		"username": "",
+		"password": "",
+		"host": "127.0.0.1",
+		"port": 27017,
+		"database": "lightswitch"
+	},
+	"credentials": {
+		"accessKeyId": "AKIAJEVS5WZASRXX727A",
+		"secretAccessKey": "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",
+		"region": "eu-west-1"
+	},
 	"credentials": {
 		"accessKeyId": "aki",
 		"secretAccessKey": "sak",
