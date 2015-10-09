@@ -8,7 +8,7 @@ var mongoose = require('../../api/db').connect();
 var userService = require('../../api/services/user-service.js');
 
 before(function () {
-	mongoose.connection.db.dropDatabase();
+	mongoose.connection.collections['users'].drop();
 })
 
 describe('User', function () {
