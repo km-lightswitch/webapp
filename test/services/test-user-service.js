@@ -1,17 +1,15 @@
-var mocha = require('mocha')
-var coMocha = require('co-mocha')
-
-coMocha(mocha)
-
-var expect = require('chai').expect;
-var mongoose = require('../../api/db').connect();
 var userService = require('../../api/services/user-service.js');
-
-before(function () {
-	mongoose.connection.collections['users'].drop();
-})
+var db = require('../../api/db');
+var expect = require('chai').expect;
 
 describe('User', function () {
+
+	var mongoose;
+	before(function () {
+		mongoose = db.connect();
+		mongoose.connection.collections['users'].drop();
+	})
+
 	describe('#register()', function () {
 		it('registers a new user', function* () {
 			var user = yield userService.register({ "displayName": "ajay", "email": "app@user.tv" });
@@ -25,5 +23,9 @@ describe('User', function () {
 			var user = yield userService.find("kunwar@ajay.tv");
 			expect(user.name).to.equal("vijay");
 		});
+	});
+
+	after(function () {
+		mongoose.connection.close();
 	});
 });

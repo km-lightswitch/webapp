@@ -25,12 +25,12 @@ var timeOfDayOffset = function timeOfDayOffset(str, offset) {
 	var tzOffsetMinutes = this.timeOfDay(offset.slice(1));
 	var timeOfDay = this.timeOfDay(str);
 	if (tzPlus == '+') {
-		var calculated = timeOfDay - tzOffsetMinutes;
+		let calculated = timeOfDay - tzOffsetMinutes;
 		return (calculated < 0 ?
 			{ "day": -1, "time": (calculated + minutesInADay) }
 			: { "day": 0, "time": calculated });
 	} else {
-		var calculated = timeOfDay + tzOffsetMinutes;
+		let calculated = timeOfDay + tzOffsetMinutes;
 		return (calculated > minutesInADay ?
 			{ "day": 1, "time": (calculated - minutesInADay) }
 			: { "day": 0, "time": calculated });
