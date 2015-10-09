@@ -1,4 +1,5 @@
 {
+
 	"db": {
 		"username": "",
 		"password": "",
@@ -7,13 +8,12 @@
 		"database": "lightswitch"
 	},
 	"credentials": {
-		"accessKeyId": "AKIAJEVS5WZASRXX727A",
-		"secretAccessKey": "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",
-		"region": "eu-west-1"
-	},
-	"credentials": {
 		"accessKeyId": "aki",
 		"secretAccessKey": "sak",
 		"region": "eu-west-1"
+	},
+	"google": {
+		"clientId": "google.client.id",
+		"clientSecret": "google.client.secret"
 	}
 }
