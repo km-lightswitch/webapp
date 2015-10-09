@@ -1,7 +1,6 @@
-var db = require('../db')
-var Promise = require
+'use strict'
 
-var User = db.getModel('user');
+var User = require('../models/user');
 
 class UserService {
 
@@ -11,11 +10,11 @@ class UserService {
 
 	* register(user) {
 		var userDoc = User({
-			name: user.name,
+			displayName: user.displayName,
 			email: user.email
 		});
 		return yield userDoc.save();
 	};
 }
 
-module.exports = UserService;
+module.exports = new UserService();

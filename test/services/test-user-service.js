@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 var mocha = require('mocha')
 var coMocha = require('co-mocha')
 
@@ -10,7 +8,7 @@ var mongoose = require('../../api/db').connect();
 var UserService = require('../../api/services/user-service.js');
 var userService = new UserService();
 
-before(function* () {
+before(function () {
 	mongoose.connection.db.dropDatabase();
 })
 

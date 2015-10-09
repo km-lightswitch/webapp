@@ -6,7 +6,7 @@
   "scripts": {
     "webpack": "webpack",
     "start": "node api/app.js",
-    "test": "mocha --compilers js:babel-core/register test/**/*.js"
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register test/**/*.js"
   },
   "author": "Krishnan Mani",
   "license": "MIT",
@@ -24,7 +24,9 @@
     "gulp": "^3.9.0",
     "koa": "^1.0.0",
     "koa-file-server": "^2.3.1",
+    "koa-passport": "^1.2.0",
     "koa-router": "^5.2.1",
+    "koa-session": "^3.3.1",
     "lodash": "^3.10.1",
     "moment-timezone": "^0.4.0",
     "mongoose": "^4.1.9",
