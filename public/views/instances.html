@@ -18,7 +18,7 @@
 			<th class="col-sm-2">Environment</th>
 			<th class="col-sm-1">State</th>
 		</tr>
-		<tr ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
+		<tr class="repeated-item" ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
 			<td class="col-sm-1">
 				<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
 			</td>

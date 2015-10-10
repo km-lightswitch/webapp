@@ -1,5 +1,7 @@
 var angular = require('angular');
 var angularRoute = require('angular-route');
+var anularAnimate = require('angular-animate');
+
 var UserService = require('./services/user-service');
 var InstanceService = require('./services/instance-service');
 var TeamService = require('./services/team-service');
@@ -8,7 +10,7 @@ var UserController = require('./controllers/user-controller')
 var InstancesController = require('./controllers/instances-controller')
 var TeamController = require('./controllers/team-controller')
 
-var app = angular.module('lightswitch', ['ngRoute']);
+var app = angular.module('lightswitch', ['ngRoute', 'ngAnimate']);
 
 app.service('userService', UserService);
 app.service('instanceService', InstanceService);
