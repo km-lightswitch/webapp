@@ -58,10 +58,6 @@ body{
 	display: inline-block;
 }
 
-.selectable:hover{
-	background-color:gray; 
-}
-
 .selectable{
 	cursor: pointer;
 }

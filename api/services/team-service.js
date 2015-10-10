@@ -21,18 +21,31 @@ class TeamService {
 		return yield doc.save();
 	};
 
-	* addMembers(owner, teamName, members) {
+	* getTeamByName(owner, teamName) {
 		var teams = yield this.getOwnedTeams(owner);
-		let team = _.find(teams, (team) => {
+		return _.find(teams, (team) => {
 			return team.owner === owner;
 		});
+	}
 
-		_.forEach(members, (member) => {
-			if (!_.includes(team.members, member)) {
-				team.members.push(member);
-			}
-		});
-		return yield team.save();
+	* addMember(owner, teamName, member) {
+		var team = yield this.getTeamByName(owner, teamName);
+		if (!_.includes(team.members, member)) {
+			team.members.push(member);
+			return yield team.save();
+		} else {
+			return team;
+		}
+	};
+
+	* removeMember(owner, teamName, memberToRemove) {
+		var team = yield this.getTeamByName(owner, teamName);
+		if (_.includes(team.members, memberToRemove)) {
+			team.members.pull(memberToRemove);
+			return yield team.save();
+		} else {
+			return team;
+		}
 	};
 }
 

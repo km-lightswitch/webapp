@@ -4,6 +4,7 @@ var config = require('config');
 var db = require('./db');
 var session = require('koa-session');
 var passport = require('koa-passport');
+var bodyParser = require('koa-body');
 
 var app = koa();
 db.connect();
@@ -25,6 +26,7 @@ var requestLogger = function* (next) {
 }
 
 app
+  .use(bodyParser({ strict: false }))
   .use(session(app))
   .use(passport.initialize())
   .use(passport.session())

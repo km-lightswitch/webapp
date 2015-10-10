@@ -17,10 +17,16 @@ var teamsController = {
 		this.status = 201;
 	},
 
-	addMembers: function* (next) {
-		let teamName = this.request.body.name;
-		let members = this.request.body.members;
-		this.body = yield teamService.addMembers(this.passport.user.email, teamName, members);
+	addMember: function* (next) {
+		let teamName = this.params.teamName;
+		let member = this.request.body.member;
+		this.body = yield teamService.addMember(this.passport.user.email, teamName, member);
+	},
+
+	removeMember: function* (next) {
+		let teamName = this.params.teamName;
+		let member = this.request.body.member;
+		this.body = yield teamService.removeMember(this.passport.user.email, teamName, member);
 	}
 }
 

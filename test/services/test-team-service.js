@@ -30,28 +30,27 @@ describe('Team', function () {
 	describe('add member to exiting team', function () {
 
 		it('when team was empty', function* () {
-			let members = ["foo", "bar"];
+			let member = "foo";
 			let ownerEmail = "user3@test.com";
 			let name = "team3"
 			let team = yield teamService.create({ "name": name, "owner": ownerEmail });
 
-			let teamWithMembers = yield teamService.addMembers(team.owner, team.name, members);
+			let teamWithMembers = yield teamService.addMember(team.owner, team.name, member);
 			expect(teamWithMembers.id).to.equal(team.id);
-			expect(teamWithMembers.members).to.contain(members[0]);
-			expect(teamWithMembers.members).to.contain(members[1]);
+			expect(teamWithMembers.members).to.contain(member);
 		});
 
 		it('when team has exisiting members', function* () {
 			let members = ["foo", "bar"];
-			var newMembers = ["new member"];
+			var newMember = "new member";
 			let ownerEmail = "user4@test.com";
 			let name = "team4"
 			let team = yield teamService.create({ "name": name, "owner": ownerEmail, "members": members });
 
-			let teamWithMembers = yield teamService.addMembers(team.owner, team.name, newMembers);
+			let teamWithMembers = yield teamService.addMember(team.owner, team.name, newMember);
 
 			expect(teamWithMembers.members.length).to.equal(3);
-			expect(teamWithMembers.members).to.contain(newMembers[0]);
+			expect(teamWithMembers.members).to.contain(newMember);
 			expect(teamWithMembers.members).to.contain(members[1]);
 		});
 	});

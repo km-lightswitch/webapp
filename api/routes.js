@@ -1,6 +1,5 @@
 var Router = require('koa-router')
 var router = new Router();
-var bodyParser = require('koa-body')();
 var secure = require('./filters/secure');
 
 var instancesController = require('./controllers/instances-controller');
@@ -13,8 +12,9 @@ instancesRoutes.get('/', instancesController.getInstances);
 
 var teamRoutes = new Router();
 teamRoutes.get('/', teamController.getTeams);
-teamRoutes.post('/', bodyParser, teamController.createTeam);
-teamRoutes.put('/', bodyParser, teamController.addMembers);
+teamRoutes.post('/', teamController.createTeam);
+teamRoutes.post('/:teamName/members', teamController.addMember);
+teamRoutes.put('/:teamName/members/delete', teamController.removeMember);
 
 var authRoutes = new Router();
 authRoutes.get('/login', authController.authenticate);
