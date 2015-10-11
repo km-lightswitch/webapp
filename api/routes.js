@@ -13,6 +13,7 @@ instancesRoutes.get('/', instancesController.getInstances);
 var teamRoutes = new Router();
 teamRoutes.get('/', teamController.getTeams);
 teamRoutes.post('/', teamController.createTeam);
+teamRoutes.delete('/:teamName', teamController.deleteTeam);
 teamRoutes.post('/:teamName/members', teamController.addMember);
 teamRoutes.put('/:teamName/members/delete', teamController.removeMember);
 

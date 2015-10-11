@@ -16,6 +16,11 @@ var teamsController = {
 		this.body = yield teamService.create(team);
 		this.status = 201;
 	},
+	
+	deleteTeam: function* (next) {
+		let teamName = this.params.teamName;
+		this.body = yield teamService.delete(this.passport.user.email, teamName);
+	},
 
 	addMember: function* (next) {
 		let teamName = this.params.teamName;

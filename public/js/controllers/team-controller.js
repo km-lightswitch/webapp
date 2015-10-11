@@ -17,13 +17,22 @@ class TeamController {
 	}
 
 	createTeam() {
-		this.teamService.createTeam(this.newTeam)
-			.then((data) => {
-				this.newTeam = null;
+		this.teamService.createTeam(this.newTeamName)
+			.then((team) => {
+				this.newTeamName = null;
+				this.teams.push(team);
 				this.successMessage = 'Team created successfully.';
 			}).catch((err) => {
 				this.errorMessage = 'Could not create team.'
 			});
+	}
+
+	deleteTeam() {
+		this.teamService.deleteTeam(this.selectedTeam)
+			.then((data) => {
+				_.remove(this.teams, this.selectedTeam);
+				this.selectedTeam = null;
+			})
 	}
 
 	selectTeam(name) {

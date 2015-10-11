@@ -20,6 +20,11 @@ class TeamService {
 		});
 		return yield doc.save();
 	};
+	
+	* delete(owner, teamName) {
+		var team = yield this.getTeamByName(owner,teamName);
+		return yield team.remove();
+	};
 
 	* getTeamByName(owner, teamName) {
 		var teams = yield this.getOwnedTeams(owner);

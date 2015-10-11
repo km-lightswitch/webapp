@@ -1,23 +1,33 @@
 <div ng-controller="TeamController as teamController" class="container">
 
 	<div class="col-md-4">
-		<table class="table table-hover col-sm-10">
+		<table class="table table-hover">
 			<tr class="table-header">
-				<th>Name</th>
-				<th class="col-sm-2">State</th>
+				<th colspan="2" class="text-right">
+					<div>
+						<input type="text" ng-model="teamController.newTeamName" class="col-md-8" />
+						<a ng-class="(teamController.newTeamName.length > 0) ? 'btn btn-primary ' : 'btn btn-primary disabled'" ng-click="teamController.createTeam()">
+							<span>Create team</span>
+						</a>
+					</div>
+				</th>
 			</tr>
 			<tr class="repeated-item selectable" ng-repeat="team in teamController.teams" ng-click="teamController.selectTeam(team.name)">
 				<td>{{ team.name }}</td>
-				<td class="col-md-5">
-					<a class="btn btn-info btn btn-edit" ng-click="teamController.edit()">Edit</a>
-					<a class="btn btn-danger btn btn-delete" ng-click="teamController.delete()">Delete</a>
+				<td class="col-md-5 text-right">
+					<a class="btn btn-danger" ng-click="teamController.deleteTeam()">
+						<span class="glyphicon glyphicon-remove"></span>
+					</a>
 				</td>
 			</tr>
 		</table>
 	</div>
-	<div class="col-md-8">
+	<div ng-hide="teamController.selectedTeam">
+		Please select a team.
+	</div>
+	<div class="col-md-8" ng-show="teamController.selectedTeam">
 		<div>
-			<div  class="heading">{{ teamController.selectedTeam.name }}</div>
+			<div class="heading">{{ teamController.selectedTeam.name }}</div>
 			<div>
 				Add member:
 				<input type="text" ng-model="teamController.newMember" />
@@ -30,7 +40,9 @@
 				<tr class="repeated-item" ng-repeat="member in teamController.selectedTeam.members">
 					<td>{{ member }}</td>
 					<td class="col-sm-2">
-						<a class="btn btn-danger btn btn-delete" ng-click="teamController.removeMember(member)">Remove</a>
+						<a class="btn btn-danger" ng-click="teamController.removeMember(member)">
+							<span class="glyphicon glyphicon-minus"></span>
+						</a>
 					</td>
 				</tr>
 			</table>

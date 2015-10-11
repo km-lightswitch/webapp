@@ -20,16 +20,31 @@ class TeamService {
 		});
 	}
 
-	createTeam(team) {
+	createTeam(teamName) {
 		return this.$q((resolve, reject) => {
 			this.$http({
 				method: 'POST',
 				url: '/api/teams',
-				data: team
+				data: { name: teamName }
 			}).then(function successCallback(response) {
 				resolve(response.data);
 			}, function errorCallback(response) {
 				console.log('Could not create new team - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+
+	deleteTeam(team) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'DELETE',
+				url: '/api/teams/' + team.name,
+				data: team
+			}).then(function successCallback(response) {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not delete team - ' + response.data);
 				reject(response.data);
 			});
 		});
