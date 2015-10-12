@@ -12,10 +12,10 @@
 					</div>
 				</th>
 			</tr>
-			<tr class="repeated-item selectable" ng-repeat="team in teamController.teams" ng-click="teamController.selectTeam(team.name)">
-				<td>{{ team.name }}</td>
-				<td class="col-md-5 text-right">
-					<a class="btn" ng-click="teamController.deleteTeam()">
+			<tr class="repeated-item selectable" ng-repeat="team in teamController.teams">
+				<td class="col-md-10" ng-click="teamController.selectTeam(team.name)">{{ team.name }}</td>
+				<td class="col-md-2 text-right">
+					<a class="btn" ng-click="teamController.deleteTeam(team.name)">
 						<span class="glyphicon glyphicon-trash"></span>
 					</a>
 				</td>

@@ -27,18 +27,25 @@ class TeamController {
 			});
 	}
 
-	deleteTeam() {
-		this.teamService.deleteTeam(this.selectedTeam)
+	deleteTeam(name) {
+		var team = this.getTeamByName(name);
+		this.teamService.deleteTeam(team)
 			.then((data) => {
-				_.remove(this.teams, this.selectedTeam);
-				this.selectedTeam = null;
+				_.remove(this.teams, team);
+				if (this.selectedTeam && this.selectedTeam.name === name) {
+					this.selectedTeam = null;
+				}
 			})
 	}
 
-	selectTeam(name) {
-		this.selectedTeam = _.find(this.teams, (team) => {
+	getTeamByName(name) {
+		return _.find(this.teams, (team) => {
 			return team.name === name;
 		})
+	}
+
+	selectTeam(name) {
+		this.selectedTeam = this.getTeamByName(name);
 	}
 
 	addMember() {
