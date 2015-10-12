@@ -28,10 +28,13 @@
 				</ul>
 
 				<div class="login-status" ng-controller="UserController as userController">
-					<a class="user-name">
+					<a ng-hide="userController.user.name" href="/auth/login" class="btn btn-danger">Sign in using Google</span>
+					<div ng-show="userController.user.name">
+						<a class="user-name">
 					{{ userController.user.name }}
 				</a>
-					<img ng-src="{{userController.user.picture}}" class="user-pic" />
+						<img ng-src="{{userController.user.picture}}" class="user-pic" />
+					</div>
 				</div>
 			</div>
 
