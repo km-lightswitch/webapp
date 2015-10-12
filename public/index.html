@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" ng-controller="NavbarController as navbarController">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Lightswitch</a>
@@ -23,8 +23,11 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#/">Home <span class="sr-only">(current)</span></a></li>
-					<li><a href="#/teams">Teams</a></li>
+
+					<li ng-class="(page.title === navbarController.currentPage.title)? 'active' : ''" ng-repeat="page in navbarController.pages">
+						<a href="#{{page.url}}" ng-click="navbarController.selectPage(page.title)">{{page.title}} <span ng-show="page.title === navbarController.currentPage.title" class="sr-only">(current)</span>
+						</a>
+					</li>
 				</ul>
 
 				<div class="login-status" ng-controller="UserController as userController">
@@ -33,10 +36,10 @@
 						<a class="user-name">
 					{{ userController.user.name }}
 				</a>
-						<img ng-src="{{userController.user.picture}}" class="user-pic" />
-					</div>
+					<img ng-src="{{userController.user.picture}}" class="user-pic" />
 				</div>
 			</div>
+		</div>
 
 		</div>
 	</nav>

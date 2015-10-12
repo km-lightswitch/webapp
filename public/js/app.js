@@ -6,6 +6,7 @@ var UserService = require('./services/user-service');
 var InstanceService = require('./services/instance-service');
 var TeamService = require('./services/team-service');
 
+var NavbarController = require('./controllers/navbar-controller')
 var UserController = require('./controllers/user-controller')
 var InstancesController = require('./controllers/instances-controller')
 var TeamController = require('./controllers/team-controller')
@@ -17,6 +18,7 @@ app.service('instanceService', InstanceService);
 app.service('teamService', TeamService);
 
 app.controller('UserController', UserController);
+app.controller('NavbarController', NavbarController);
 app.controller('InstancesController', InstancesController);
 app.controller('TeamController', TeamController);
 
@@ -28,6 +30,9 @@ app.config(['$routeProvider',
 			}).
 			when('/teams', {
 				templateUrl: 'views/teams.html',
+			}).
+			when('/schedules', {
+				templateUrl: 'views/schedules.html',
 			});
 	}
 ]);
