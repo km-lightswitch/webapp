@@ -5,6 +5,7 @@ class InstancesController {
 
 	constructor(instanceService, teamService) {
 		this.instances = [];
+		this.instanceService = instanceService;
 		this.teams = [{ name: 'All' }];
 
 		instanceService.getInstances().then((data) => {
@@ -29,14 +30,20 @@ class InstancesController {
 	}
 
 	start() {
-		_.forEach(this.getSelectedInstances(), (instance) => {
-			instance.state = 'running';
+		var instances = this.getSelectedInstances();
+		this.instanceService.startInstances(instances).then(() => {
+			_.forEach(instances, (instance) => {
+				instance.state = 'starting..';
+			});
 		});
 	}
 
 	stop() {
-		_.forEach(this.getSelectedInstances(), (instance) => {
-			instance.state = 'stopped';
+		var instances = this.getSelectedInstances();
+		this.instanceService.stopInstances(instances).then(() => {
+			_.forEach(this.getSelectedInstances(), (instance) => {
+				instance.state = 'stopping..';
+			});
 		});
 	}
 

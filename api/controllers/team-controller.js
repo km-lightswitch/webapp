@@ -1,13 +1,13 @@
 'use strict'
 var teamService = require('../services/team-service');
 
-var teamsController = {
+class TeamController {
 
-	getTeams: function* (next) {
+	* getTeams(next) {
 		this.body = yield teamService.getTeams(this.passport.user.email);
-	},
+	}
 
-	createTeam: function* (next) {
+	* createTeam(next) {
 		let team = {
 			name: this.request.body.name,
 			owner: this.passport.user.email,
@@ -15,24 +15,24 @@ var teamsController = {
 		}
 		this.body = yield teamService.create(team);
 		this.status = 201;
-	},
-	
-	deleteTeam: function* (next) {
+	}
+
+	* deleteTeam(next) {
 		let teamName = this.params.teamName;
 		this.body = yield teamService.delete(this.passport.user.email, teamName);
-	},
+	}
 
-	addMember: function* (next) {
+	* addMember(next) {
 		let teamName = this.params.teamName;
 		let member = this.request.body.member;
 		this.body = yield teamService.addMember(this.passport.user.email, teamName, member);
-	},
+	}
 
-	removeMember: function* (next) {
+	* removeMember(next) {
 		let teamName = this.params.teamName;
 		let member = this.request.body.member;
 		this.body = yield teamService.removeMember(this.passport.user.email, teamName, member);
 	}
 }
 
-module.exports = teamsController;
+module.exports = new TeamController();

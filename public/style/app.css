@@ -1,5 +1,14 @@
 body{
 	font-family: 'Arial';
+	font-size: 14px;
+}
+
+input{
+	float: none !important;
+}
+
+.table tbody tr td, .table tbody tr th{
+	vertical-align: middle;
 }
 
 .select{
@@ -60,4 +69,16 @@ body{
 
 .selectable{
 	cursor: pointer;
+}
+
+.glyphicon {
+	font-size: 18px;
+}
+
+.glyphicon-remove {
+	color: salmon;
+}
+
+.glyphicon-trash{
+	color:orange;
 }

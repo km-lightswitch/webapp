@@ -9,6 +9,8 @@ var userController = require('./controllers/user-controller');
 
 var instancesRoutes = new Router();
 instancesRoutes.get('/', instancesController.getInstances);
+instancesRoutes.post('/start', instancesController.startInstances);
+instancesRoutes.post('/stop', instancesController.stopInstances);
 
 var teamRoutes = new Router();
 teamRoutes.get('/', teamController.getTeams);

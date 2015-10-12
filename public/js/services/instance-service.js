@@ -24,6 +24,36 @@ class instanceService {
 		});
 	}
 
+	startInstances(instances) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'POST',
+				url: '/api/instances/start',
+				data: { instances: _.pluck(instances, 'InstanceId') }
+			}).then((response) => {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not start instances - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+
+	stopInstances(instances) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'POST',
+				url: '/api/instances/stop',
+				data: { instances: _.pluck(instances, 'InstanceId') }
+			}).then((response) => {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not stop instances - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+
 	extractNameFromTag(instance) {
 		var nameTag = _.find(instance.Tags, (tag) => {
 			return tag.Name !== undefined;

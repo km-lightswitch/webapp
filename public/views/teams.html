@@ -15,8 +15,8 @@
 			<tr class="repeated-item selectable" ng-repeat="team in teamController.teams" ng-click="teamController.selectTeam(team.name)">
 				<td>{{ team.name }}</td>
 				<td class="col-md-5 text-right">
-					<a class="btn btn-danger" ng-click="teamController.deleteTeam()">
-						<span class="glyphicon glyphicon-remove"></span>
+					<a class="btn" ng-click="teamController.deleteTeam()">
+						<span class="glyphicon glyphicon-trash"></span>
 					</a>
 				</td>
 			</tr>
@@ -39,9 +39,9 @@
 			<table class="table table-striped col-sm-10">
 				<tr class="repeated-item" ng-repeat="member in teamController.selectedTeam.members">
 					<td>{{ member }}</td>
-					<td class="col-sm-2">
-						<a class="btn btn-danger" ng-click="teamController.removeMember(member)">
-							<span class="glyphicon glyphicon-minus"></span>
+					<td class="col-sm-2 text-right">
+						<a class="btn" ng-click="teamController.removeMember(member)">
+							<span class="glyphicon glyphicon-remove"></span>
 						</a>
 					</td>
 				</tr>

@@ -1,7 +1,7 @@
 'use strict'
-var userController = {
+class UserController {
 
-	getUser: function* (next) {
+	* getUser(next) {
 		var user = this.passport.user;
 		this.body = {
 			email: user.email,
@@ -11,4 +11,4 @@ var userController = {
 	}
 }
 
-module.exports = userController;
+module.exports = new UserController();

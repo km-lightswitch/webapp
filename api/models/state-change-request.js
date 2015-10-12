@@ -1,10 +1,8 @@
 var mongoose = require('mongoose');
-var MongoClient = require('mongoose').MongoClient;
-var Schema = mongoose.Schema;
 
 var requestedStateAllowedValues = ['start', 'stop'];
 
-var stateChangeRequestSchema = new Schema({
+var stateChangeRequestSchema = {
 	instanceId: {
 		type: String,
 		required: true
@@ -22,10 +20,6 @@ var stateChangeRequestSchema = new Schema({
 	requestedAt: { type: Date, required: true },
 	requestedBy: { type: String, required: true, default: "System" },
 	recordedAt: { type: Date, required: true, default: Date.now }
-});
-
-var StateChangeRequest = mongoose.model('StateChangeRequest', stateChangeRequestSchema);
-
-var resolveStateChangeRequest = function resolveStateChangeRequest(nextNMinutes) {
-	//Find and save state change requests in the next n minutes
 };
+
+module.exports = mongoose.model('StateChangeRequest', stateChangeRequestSchema);
