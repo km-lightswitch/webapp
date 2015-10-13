@@ -29,6 +29,12 @@
 		<div>
 			<div class="heading">{{ teamController.selectedTeam.name }}</div>
 			<div>
+				Credentials:
+				<div>Access Key Id: <input type="text" ng-model="teamController.accessKeyId" /></div>
+				<div>Secret Access Key: <input type="password" ng-model="teamController.secretAccessKey" /></div>
+				<a ng-class="(teamController.accessKeyId.length > 0 && teamController.secretAccessKey.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'" ng-click="teamController.saveCredentials()">Save</a>
+			</div>
+			<div>
 				Add member:
 				<input type="text" ng-model="teamController.newMember" />
 				<a ng-class="(teamController.newMember.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'" ng-click="teamController.addMember()">Add</a>

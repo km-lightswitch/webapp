@@ -17,6 +17,7 @@ teamRoutes.get('/', teamController.getTeams);
 teamRoutes.post('/', teamController.createTeam);
 teamRoutes.delete('/:teamName', teamController.deleteTeam);
 teamRoutes.post('/:teamName/members', teamController.addMember);
+teamRoutes.post('/:teamName/credentials', teamController.saveCredentials);
 teamRoutes.put('/:teamName/members/delete', teamController.removeMember);
 
 var authRoutes = new Router();

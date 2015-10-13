@@ -44,7 +44,7 @@ class TeamService {
 			}).then(function successCallback(response) {
 				resolve(response.data);
 			}, function errorCallback(response) {
-				console.log('Could not delete team - ' + response.data);
+				console.error('Could not delete team - ' + response.data);
 				reject(response.data);
 			});
 		});
@@ -59,9 +59,25 @@ class TeamService {
 			}).then(function successCallback(response) {
 				resolve(response.data);
 			}, function errorCallback(response) {
-				console.log('Could not add new member - ' + response.data);
+				console.error('Could not add new member - ' + response.data);
 				reject(response.data);
 			});
+		});
+	}
+	
+	saveCredentials(team, accessKeyId, secretAccessKey) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'POST',
+				url: 'api/teams/' + team.name + '/credentials',
+				data: {  "accessKeyId": accessKeyId, "secretAccessKey": secretAccessKey }
+			}).then(function successCallback(response) {
+				resolve();
+			}, function errorCallback(response) {
+				console.error('Could not save credentials - ' + response.data);
+				reject(response.data);
+			})
+			
 		});
 	}
 
@@ -74,7 +90,7 @@ class TeamService {
 			}).then(function successCallback(response) {
 				resolve(response.data);
 			}, function errorCallback(response) {
-				console.log('Could not remove member - ' + response.data);
+				console.error('Could not remove member - ' + response.data);
 				reject(response.data);
 			});
 		});

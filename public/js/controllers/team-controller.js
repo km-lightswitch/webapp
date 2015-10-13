@@ -55,6 +55,14 @@ class TeamController {
 				this.newMember = null;
 			});
 	}
+	
+	saveCredentials() {
+		this.teamService.saveCredentials(this.selectedTeam, this.accessKeyId, this.secretAccessKey)
+		.then(() => {
+			this.accessKeyId = null;
+			this.secretAccessKey = null;
+		})
+	}
 
 	updateTeams(updatedTeam) {
 		var index = _.findIndex(this.teams, (team) => {
