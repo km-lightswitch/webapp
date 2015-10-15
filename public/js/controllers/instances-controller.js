@@ -3,18 +3,24 @@ var _ = require('lodash');
 
 class InstancesController {
 
-	constructor(instanceService, teamService) {
+	constructor($scope, instanceService, teamService) {
 		this.instances = [];
 		this.instanceService = instanceService;
-		this.teams = [{ name: 'All' }];
-
-		instanceService.getInstances().then((data) => {
-			this.instances = data;
-		});
+		this.teams = [];
 
 		teamService.getTeams().then((data) => {
 			this.teams = this.teams.concat(data);
+			this.currentTeam = this.teams[0].name;
+			this.fetchInstances(this.currentTeam);
 		})
+	}
+
+	fetchInstances(teamName) {
+		this.instanceService.getInstances(teamName).then((data) => {
+			this.instances = data;
+		}).catch(()=>{
+			this.instances = [];
+		});
 	}
 
 	getSelectedInstances() {

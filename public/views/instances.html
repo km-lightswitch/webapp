@@ -1,8 +1,8 @@
 <div ng-controller="InstancesController as instancesController" class="container">
 	<div class="teams col-sm-3 col-sm-offset-9 text-right">
 		<strong>Team:</strong>
-		<select ng-model="instancesController.currentTeam" class="form-control select">
-			<option ng-repeat="team in instancesController.teams" value="{{ team.id }}">
+		<select ng-model="instancesController.currentTeam" ng-change="instancesController.fetchInstances(instancesController.currentTeam)" class="form-control select">
+			<option ng-repeat="team in instancesController.teams" value="{{ team.name }}">
 				{{ team.name }}
 			</option>
 		</select>
@@ -18,7 +18,7 @@
 			<th class="col-sm-2">Environment</th>
 			<th class="col-sm-1">State</th>
 		</tr>
-		<tr class="repeated-item" ng-repeat="instance in instancesController.instances | filter: instancesController.currentTeam ">
+		<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
 			<td class="col-sm-1">
 				<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
 			</td>

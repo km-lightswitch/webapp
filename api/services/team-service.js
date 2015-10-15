@@ -29,7 +29,7 @@ class TeamService {
 	* getTeamByName(owner, teamName) {
 		var teams = yield this.getOwnedTeams(owner);
 		return _.find(teams, (team) => {
-			return team.owner === owner;
+			return team.name === teamName;
 		});
 	}
 

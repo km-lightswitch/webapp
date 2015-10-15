@@ -3,18 +3,23 @@ var _ = require('lodash');
 var config = require('config');
 
 var validateCredentials = function validateCredentials(credentials) {
-    if (!credentials.accessKeyId) { throw new Error("Missing access key id"); }
-    if (!credentials.secretAccessKey) { throw new Error("Missing secret access key"); }
-    if (!credentials.region) { throw new Error("Missing region"); }
+    if (!credentials.accessKeyId) {
+        throw new Error("Missing access key id");
+    }
+    if (!credentials.secretAccessKey) {
+        throw new Error("Missing secret access key");
+    }
     return true;
 };
 
-var credentials = config.credentials;
-
-var getInstances = function listInstances() {
+var getInstances = function (credentials) {
     validateCredentials(credentials);
+    var ec2 = new AWS.EC2({
+        accessKeyId: credentials.accessKeyId,
+        secretAccessKey: credentials.secretAccessKey,
+        region: "eu-west-1"
+    });
 
-    var ec2 = new AWS.EC2(credentials);
     var params = {};
     return new Promise(function (resolve, reject) {
         ec2.describeInstances(params, function (error, data) {

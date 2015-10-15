@@ -8,7 +8,7 @@ var teamController = require('./controllers/team-controller');
 var instancesController = require('./controllers/instances-controller');
 
 var instancesRoutes = new Router();
-instancesRoutes.get('/', instancesController.getInstances);
+instancesRoutes.get('/:teamName', instancesController.getInstances);
 instancesRoutes.post('/start', instancesController.startInstances);
 instancesRoutes.post('/stop', instancesController.stopInstances);
 
@@ -30,7 +30,7 @@ authRoutes.get('/login/error', authController.failure);
 
 router.get('/api/user', secure, userController.getUser);
 
-router.get('/',function * (next){
+router.get('/', function* (next) {
 	this.response.redirect('/index.html');
 })
 

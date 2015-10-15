@@ -8,11 +8,11 @@ class instanceService {
 		this.$q = $q;
 	}
 
-	getInstances() {
+	getInstances(teamName) {
 		return this.$q((resolve, reject) => {
 			this.$http({
 				method: 'GET',
-				url: '/api/instances'
+				url: '/api/instances/' + teamName
 			}).then((response) => {
 				var data = _.map(response.data, this.extractNameFromTag);
 				data = _.map(data, this.extractEnvironmentFromTag);

@@ -53,6 +53,8 @@ class TeamController {
 		let owner = this.passport.user.email;
 		let team = yield teamService.getTeamByName(owner, teamName);
 		
+		console.log(team.name + ' ' + team.id);
+		
 		var accessKeyId = yield credentialsService.getAccessKeyId(team.id);
 		this.body = { accessKeyId: accessKeyId};
 	}
