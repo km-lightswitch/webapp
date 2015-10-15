@@ -7,6 +7,10 @@ var stateChangeRequestSchema = {
 		type: String,
 		required: true
 	},
+	teamId: {
+		type: String,
+		required: true
+	},
 	requestedState: {
 		type: String,
 		required: true,

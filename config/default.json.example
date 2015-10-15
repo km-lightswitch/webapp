@@ -14,6 +14,7 @@
 	},
 	"google": {
 		"clientId": "google.client.id",
-		"clientSecret": "google.client.secret"
+		"clientSecret": "google.client.secret",
+		"callbackURL": "http://localhost:3000/auth/login/callback"
 	}
 }

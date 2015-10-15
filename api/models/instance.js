@@ -7,11 +7,11 @@ var instanceSchema = new Schema({
 		required: true
 	},
 	teamId: {
-		type: Schema.Types.ObjectId,
+		type: String,
 		required: true
 	},
 	registeredBy: {
-		type: Schema.Types.ObjectId,
+		type: String,
 		required: true
 	},
 	registeredAt: {

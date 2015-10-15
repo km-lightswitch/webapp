@@ -1,8 +1,9 @@
 var config = require('config');
 var passport = require('koa-passport');
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
-var userService = require('./services/user-service');
 var co = require('co');
+
+var userService = require('./services/user-service');
 
 var Auth = {
   init: function () {
@@ -24,7 +25,7 @@ var Auth = {
     passport.use(new GoogleStrategy({
       clientID: config.get('google.clientId'),
       clientSecret: config.get('google.clientSecret'),
-      callbackURL: "http://localhost:3000/auth/login/callback",
+      callbackURL: config.get('google.callbackURL'),
       passReqToCallback: true
     }, function (request, accessToken, refreshToken, profile, done) {
       co(function* () {
@@ -40,6 +41,6 @@ var Auth = {
       });
     }));
   }
-}
+};
 
 module.exports = Auth;
