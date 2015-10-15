@@ -1,3 +1,4 @@
+'use strict'
 var moment = require('moment-timezone');
 var times = require('./times.js');
 var _ = require('lodash');
@@ -75,8 +76,8 @@ class Schedule {
 	}
 
 	isBetween(time, aryTimes) {
-		var min = Math.min(...aryTimes);
-		var max = Math.max(...aryTimes);
+		var min = _.min(aryTimes);
+		var max = _.max(aryTimes);
 		
 		return ((min <= time) && (time <= max));
 	}

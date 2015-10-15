@@ -1,3 +1,4 @@
+'use strict'
 var moment = require('moment-timezone');
 
 var timeOfDay = function timeOfDay(str) {

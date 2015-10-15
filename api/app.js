@@ -7,6 +7,8 @@ var bodyParser = require('koa-body');
 var db = require('./db');
 var router = require('./routes');
 
+var recordStateChangeService = require('./schedulers/scheduler').recordStateChangeService;
+
 var app = koa();
 db.connect();
 
@@ -36,5 +38,7 @@ app
   .use(router.allowedMethods());
 
 console.log('Config environment:', config.util.getEnv('NODE_ENV'));
+
+recordStateChangeService.start();
 
 app.listen(3000);
