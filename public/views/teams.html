@@ -29,19 +29,36 @@
 		<div>
 			<div class="heading">{{ teamController.selectedTeam.name }}</div>
 			<div>
-				Credentials:
-				<div>Access Key Id: <input type="text" ng-model="teamController.accessKeyId" /></div>
-				<div>Secret Access Key: <input type="password" ng-model="teamController.secretAccessKey" /></div>
-				<a ng-class="(teamController.accessKeyId.length > 0 && teamController.secretAccessKey.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'" ng-click="teamController.saveCredentials()">Save</a>
+				<div class="title">Credentials:</div>
+				<div ng-show="teamController.selectedTeam.accessKeyId">
+					<span>Access Key Id: {{teamController.selectedTeam.accessKeyId}} </span>
+					<a ng-click="teamController.editCredentials()" class="btn btn-primary">Update</a>
+				</div>
+				<div ng-show="teamController.selectedTeam.accessKeyId === null || teamController.showEditCredentialView">
+					<div class="row">
+						<span class="col-md-3">Access Key Id:</span>
+						<input class="col-md-9" type="text" ng-model="teamController.accessKeyId" />
+					</div>
+					<div class="row">
+						<span class="col-md-3">Secret Access Key:</span>
+						<input class="col-md-9" type="password" ng-model="teamController.secretAccessKey" />
+					</div>
+					<div class="row">
+						<span class="col-md-3"></span>
+						<a ng-class="(teamController.accessKeyId.length > 0 && teamController.secretAccessKey.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'"
+						ng-click="teamController.saveCredentials()">Save</a>
+					</div>
+				</div>
 			</div>
-			<div>
+
+		</div>
+		<div class="col">
+			<div class="title"> Members:</div>
+			<div class="row">
 				Add member:
 				<input type="text" ng-model="teamController.newMember" />
 				<a ng-class="(teamController.newMember.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'" ng-click="teamController.addMember()">Add</a>
 			</div>
-		</div>
-		<div>
-			<div class="title"> Members:</div>
 			<table class="table table-striped col-sm-10">
 				<tr class="repeated-item" ng-repeat="member in teamController.selectedTeam.members">
 					<td>{{ member }}</td>

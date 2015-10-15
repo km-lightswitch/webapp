@@ -17,6 +17,7 @@ teamRoutes.get('/', teamController.getTeams);
 teamRoutes.post('/', teamController.createTeam);
 teamRoutes.delete('/:teamName', teamController.deleteTeam);
 teamRoutes.post('/:teamName/members', teamController.addMember);
+teamRoutes.get('/:teamName/credentials', teamController.getCredentials);
 teamRoutes.post('/:teamName/credentials', teamController.saveCredentials);
 
 //#TODO: Change the delete
@@ -28,6 +29,10 @@ authRoutes.get('/login/callback', authController.handleAuthCallback);
 authRoutes.get('/login/error', authController.failure);
 
 router.get('/api/user', secure, userController.getUser);
+
+router.get('/',function * (next){
+	this.response.redirect('/index.html');
+})
 
 router.use('/api/instances', secure, instancesRoutes.routes(), instancesRoutes.allowedMethods());
 router.use('/api/teams', secure, teamRoutes.routes(), teamRoutes.allowedMethods());

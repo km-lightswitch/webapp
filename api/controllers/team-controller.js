@@ -29,6 +29,12 @@ class TeamController {
 		this.body = yield teamService.addMember(this.passport.user.email, teamName, member);
 	}
 	
+	* removeMember(next) {
+		let teamName = this.params.teamName;
+		let member = this.request.body.member;
+		this.body = yield teamService.removeMember(this.passport.user.email, teamName, member);
+	}
+	
 	* saveCredentials(next) {
 		let teamName = this.params.teamName;
 		let owner = this.passport.user.email;
@@ -41,11 +47,14 @@ class TeamController {
 		this.body = {}
 		this.status = 201;
 	}
-
-	* removeMember(next) {
+	
+	* getCredentials(next){
 		let teamName = this.params.teamName;
-		let member = this.request.body.member;
-		this.body = yield teamService.removeMember(this.passport.user.email, teamName, member);
+		let owner = this.passport.user.email;
+		let team = yield teamService.getTeamByName(owner, teamName);
+		
+		var accessKeyId = yield credentialsService.getAccessKeyId(team.id);
+		this.body = { accessKeyId: accessKeyId};
 	}
 }
 

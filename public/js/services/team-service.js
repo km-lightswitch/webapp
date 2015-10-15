@@ -64,22 +64,6 @@ class TeamService {
 			});
 		});
 	}
-	
-	saveCredentials(team, accessKeyId, secretAccessKey) {
-		return this.$q((resolve, reject) => {
-			this.$http({
-				method: 'POST',
-				url: 'api/teams/' + team.name + '/credentials',
-				data: {  "accessKeyId": accessKeyId, "secretAccessKey": secretAccessKey }
-			}).then(function successCallback(response) {
-				resolve();
-			}, function errorCallback(response) {
-				console.error('Could not save credentials - ' + response.data);
-				reject(response.data);
-			})
-			
-		});
-	}
 
 	removeMember(team, member) {
 		return this.$q((resolve, reject) => {
@@ -95,6 +79,37 @@ class TeamService {
 			});
 		});
 	}
+
+	saveCredentials(team, accessKeyId, secretAccessKey) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'POST',
+				url: 'api/teams/' + team.name + '/credentials',
+				data: { "accessKeyId": accessKeyId, "secretAccessKey": secretAccessKey }
+			}).then(function successCallback(response) {
+				resolve();
+			}, function errorCallback(response) {
+				console.error('Could not save credentials - ' + response.data);
+				reject(response.data);
+			})
+		});
+	}
+
+	getCredentials(team) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'GET',
+				url: 'api/teams/' + team.name + '/credentials'
+			}).then(function successCallback(response) {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.error('Could not get credentials - ' + response.data);
+				reject(response.data);
+			})
+		});
+	}
+
 }
+
 
 module.exports = TeamService;
