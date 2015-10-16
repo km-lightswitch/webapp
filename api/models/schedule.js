@@ -9,6 +9,12 @@ class Schedule {
 		this.schedule = schedule;
 	}
 
+	getName() { return this.name; }	
+	nature() { return this.schedule.nature;	}
+	timespan() { return this.schedule.timespan; }
+	timezone() { return this.schedule.timezone; }
+	schedules() { return this.schedule.schedules; }
+
 	weekdays(idx) {
 		return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][idx];
 	}

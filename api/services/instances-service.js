@@ -20,7 +20,6 @@ class InstancesService {
 	
 	* getInstanceSchedules() {
 		let instanceData = yield Instance.find({}, 'instanceId teamId schedule').exec();
-		
 		return _.map(instanceData, (instance) => {
 			return {
 				instanceId: instance.instanceId,
@@ -32,7 +31,6 @@ class InstancesService {
 	
 	* getInstanceStateChangeEvents(atTime, nextMinutes) {
 		let instanceSchedules = yield this.getInstanceSchedules();
-		
 		let stateChangeEvents = _.map(instanceSchedules, (instanceSchedule) => {
 			var stateChangeEventForSchedule = instanceSchedule.schedule.getEvent(atTime, nextMinutes);
 			if (stateChangeEventForSchedule != undefined) {

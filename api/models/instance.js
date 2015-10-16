@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-var instanceSchema = new Schema({
+var instanceSchema = {
 	instanceId: {
 		type: String,
 		required: true
@@ -29,7 +29,7 @@ var instanceSchema = new Schema({
 		timezone: { type: String, required: true },
 		schedules: Schema.Types.Mixed
 	}
-});
+};
 
 var Instance = mongoose.model('Instance', instanceSchema);
 
