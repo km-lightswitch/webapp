@@ -37,7 +37,7 @@ class InstancesService {
 				return {
 					instanceId: instanceSchedule.instanceId,
 					teamId: instanceSchedule.teamId,
-					requestedState: stateChangeEventForSchedule.state,
+					requestedState: stateChangeEventForSchedule.state == 'up' ? 'start' : 'stop',
 					requestedAt: stateChangeEventForSchedule.at
 				};
 			} else {
