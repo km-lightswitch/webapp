@@ -15,18 +15,9 @@ describe('InstancesService', function () {
 
 	describe('#saveInstanceAsManaged', function () {
 		it('Sets instance to managed', function* () {
-			var schedule = {
-				name: weeklySchedule.getName(),
-				nature: weeklySchedule.nature(),
-				timespan: weeklySchedule.timespan(),
-				timezone: weeklySchedule.timezone(),
-				schedules: weeklySchedule.schedules()
-			}
-
 			let instance = yield (Instance({
 				instanceId: 'manageThis',
-				teamId: 'managedTeam',
-				schedule: schedule
+				teamId: 'managedTeam'
 			})).save();
 
 			yield instancesService.saveInstanceAsManaged('manageThis', 'managedTeam', 'x@orgs.bash');

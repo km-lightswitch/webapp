@@ -26,10 +26,10 @@ var instanceSchema = {
 	},
 
 	schedule: {
-		name: { type: String, required: true },
-		nature: { type: String, required: true },
-		timespan: { type: String, default: 'weekly' },
-		timezone: { type: String, required: true },
+		name: String,
+		nature: String,
+		timespan: String,
+		timezone: String,
 		schedules: Schema.Types.Mixed
 	}
 };
