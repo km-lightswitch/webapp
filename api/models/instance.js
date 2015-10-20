@@ -7,6 +7,11 @@ var instanceSchema = {
 		required: true
 	},
 
+	region: {
+		type: String,
+		required: true
+	},
+
 	teamId: {
 		type: String,
 		required: true

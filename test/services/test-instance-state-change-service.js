@@ -13,7 +13,7 @@ var instanceStateChangeService = require('../../api/services/instance-state-chan
 
 describe('InstanceStateChangeService', function () {
 	let mongoose;
-	before(function () {
+	beforeEach(function () {
 		mongoose = db.connect();
 		_.forEach(['instances', 'statechangerequests'], (collection) => {
 			mongoose.connection.collections[collection].drop();
@@ -32,7 +32,7 @@ describe('InstanceStateChangeService', function () {
 		yield Instance({
 			instanceId: 'foo',
 			teamId: 'fooTeam',
-			registeredBy: 'akbar@emperor.org',
+			region: 'eu-east-1',
 			schedule: schedule
 		}).save();
 
@@ -46,7 +46,7 @@ describe('InstanceStateChangeService', function () {
 	});
 
 
-	after(function () {
+	afterEach(function () {
 		_.forEach(['instances', 'statechangerequests'], (collection) => {
 			mongoose.connection.collections[collection].drop();
 		});

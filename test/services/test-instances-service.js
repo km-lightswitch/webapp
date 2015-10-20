@@ -17,7 +17,8 @@ describe('InstancesService', function () {
 		it('Sets instance to managed', function* () {
 			let instance = yield (Instance({
 				instanceId: 'manageThis',
-				teamId: 'managedTeam'
+				teamId: 'managedTeam',
+				region: 'eu-west-1'
 			})).save();
 
 			yield instancesService.saveInstanceAsManaged('manageThis', 'managedTeam', 'x@orgs.bash');
@@ -40,7 +41,7 @@ describe('InstancesService', function () {
 			yield Instance({
 				instanceId: 'foo',
 				teamId: 'fooTeam',
-				registeredBy: 'akbar@emperor.org',
+				region: 'ap-southeast-1',
 				schedule: schedule
 			}).save();
 
@@ -65,7 +66,7 @@ describe('InstancesService', function () {
 			yield Instance({
 				instanceId: 'foo',
 				teamId: 'fooTeam',
-				registeredBy: 'akbar@emperor.org',
+				region: 'us-east-1',
 				schedule: schedule
 			}).save();
 
@@ -80,7 +81,7 @@ describe('InstancesService', function () {
 	});
 
 	afterEach(function () {
-		// mongoose.connection.collections['instances'].drop();
+		mongoose.connection.collections['instances'].drop();
 		mongoose.connection.close();
 	})
 });

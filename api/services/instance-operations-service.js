@@ -3,14 +3,21 @@ var _ = require('lodash');
 var co = require('co');
 
 var StateChangeRequest = require('../models/state-change-request');
+var instancesService = require('./instances-service');
+var ec2 = require('./ec2');
+
 
 class InstanceOperationsService {
 
-	* manageInstances(instanceIds, teamId) {
-		//persist instances as managed
-		//tag instances as managed
-	}	
-
+	* manageInstances(instanceIds, teamId, registeredBy) {
+		var i = 0;
+		var len = instanceIds.length;
+		while (i < len) {
+			var instanceId = instanceIds[i++];
+			instancesService.saveInstanceAsManaged(instanceId, teamId, registeredBy);
+			yield ec2.tagInstance(instanceId, teamId);
+		}
+	}
 
 	* startInstances(instances, user) {
 		yield _.map(instances, (instanceId) => {
