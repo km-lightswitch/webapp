@@ -8,7 +8,7 @@ var Db = {
 	connect: function () {
 		console.log('Using environment:', env);
 
-		console.log('Config environment:', config.util.getEnv('NODE_ENV'));
+		console.log('Configuration environment:', config.util.getEnv('NODE_ENV'));
 		var host = config.get('db.host');
 		var port = config.get('db.port');
 		var database = config.get('db.database');

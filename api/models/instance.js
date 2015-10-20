@@ -11,15 +11,18 @@ var instanceSchema = {
 		type: String,
 		required: true
 	},
+	
+	isManaged: {
+		type: Boolean,
+		default: false
+	},
 
 	registeredBy: {
 		type: String,
-		required: true
 	},
 
 	registeredAt: {
 		type: Date,
-		default: Date.now
 	},
 
 	schedule: {

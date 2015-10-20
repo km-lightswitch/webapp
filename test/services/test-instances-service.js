@@ -8,12 +8,35 @@ var instancesService = require('../../api/services/instances-service');
 
 describe('InstancesService', function () {
 	let mongoose;
-	before(function () {
+	beforeEach(function () {
 		mongoose = db.connect();
 		mongoose.connection.collections['instances'].drop();
 	})
-	
-	describe('#getInstanceStateChangeEvents', function() {
+
+	describe('#saveInstanceAsManaged', function () {
+		it('Sets instance to managed', function* () {
+			var schedule = {
+				name: weeklySchedule.getName(),
+				nature: weeklySchedule.nature(),
+				timespan: weeklySchedule.timespan(),
+				timezone: weeklySchedule.timezone(),
+				schedules: weeklySchedule.schedules()
+			}
+
+			let instance = yield (Instance({
+				instanceId: 'manageThis',
+				teamId: 'managedTeam',
+				schedule: schedule
+			})).save();
+
+			yield instancesService.saveInstanceAsManaged('manageThis', 'managedTeam', 'x@orgs.bash');
+
+			let managedInstance = yield Instance.findOne({ 'instanceId': 'manageThis', 'teamId': 'managedTeam' }, 'instanceId isManaged registeredBy registeredAt').exec();
+			expect(managedInstance.registeredBy).to.equal('x@orgs.bash');
+		});
+	});
+
+	describe('#getInstanceStateChangeEvents', function () {
 		it('Fetches instance state change events', function* () {
 			var schedule = {
 				name: weeklySchedule.getName(),
@@ -29,11 +52,11 @@ describe('InstancesService', function () {
 				registeredBy: 'akbar@emperor.org',
 				schedule: schedule
 			}).save();
-			
+
 			var mondayFourToTenAMIST = moment('2015-10-19T09:56:00+05:30');
 			var fiveMinutes = 5;
 			let instanceStateChangeEvents = yield instancesService.getInstanceStateChangeEvents(mondayFourToTenAMIST, fiveMinutes);
-			expect(instanceStateChangeEvents[0].instanceId).to.equal('foo'); 
+			expect(instanceStateChangeEvents[0].instanceId).to.equal('foo');
 		});
 	})
 
@@ -65,8 +88,8 @@ describe('InstancesService', function () {
 
 	});
 
-	after(function () {
-		mongoose.connection.collections['instances'].drop();
+	afterEach(function () {
+		// mongoose.connection.collections['instances'].drop();
 		mongoose.connection.close();
 	})
 });
