@@ -14,7 +14,7 @@ class InstanceOperationsService {
 		var len = instanceIds.length;
 		while (i < len) {
 			var instanceId = instanceIds[i++];
-			instancesService.saveInstanceAsManaged(instanceId, teamId, registeredBy);
+			instancesService.manageInstance(instanceId, teamId, registeredBy);
 			yield ec2.tagInstance(instanceId, teamId);
 		}
 	}

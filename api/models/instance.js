@@ -16,11 +16,6 @@ var instanceSchema = {
 		type: String,
 		required: true
 	},
-	
-	isManaged: {
-		type: Boolean,
-		default: false
-	},
 
 	registeredBy: {
 		type: String,

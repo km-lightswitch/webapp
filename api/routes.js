@@ -8,7 +8,9 @@ var teamController = require('./controllers/team-controller');
 var instancesController = require('./controllers/instances-controller');
 
 var instancesRoutes = new Router();
-instancesRoutes.get('/:teamName', instancesController.getInstances);
+instancesRoutes.get('/:teamName', instancesController.getManagedInstances);
+instancesRoutes.get('/:teamName/discover', instancesController.discoverInstances);
+instancesRoutes.post('/:teamName/manage', instancesController.manageInstances);
 instancesRoutes.post('/start', instancesController.startInstances);
 instancesRoutes.post('/stop', instancesController.stopInstances);
 

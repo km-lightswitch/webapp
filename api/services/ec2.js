@@ -1,6 +1,12 @@
+'use strict'
 var AWS = require('aws-sdk');
 var _ = require('lodash');
+var moment = require('moment-timezone');
+
 var config = require('config');
+var credentialsService = require('./credentials-service');
+
+var MANAGED_BY_LIGHTSWITCH_TAG = 'managed_by_lightswitch_at';
 
 var validateCredentials = function validateCredentials(credentials) {
     if (!credentials.accessKeyId) {
@@ -10,6 +16,38 @@ var validateCredentials = function validateCredentials(credentials) {
         throw new Error("Missing secret access key");
     }
     return true;
+};
+
+var tagInstance = function tagInstance(instanceId, region, teamId) {
+    let credentialsForTeam = credentialsService.getCredentials(teamId);
+    validateCredentials(credentialsForTeam);
+
+    var ec2 = new AWS.EC2({
+        accessKeyId: credentialsForTeam.accessKeyId,
+        secretAccessKey: credentialsForTeam.secretAccessKey,
+        region: region
+    });
+
+    var params = {
+        Resources: [
+            instanceId,
+        ],
+        Tags: [
+            {
+                Key: MANAGED_BY_LIGHTSWITCH_TAG,
+                Value: moment().format()
+            }
+        ]
+    };
+    return new Promise(function (resolve, reject) {
+        ec2.createTags(params, function (error, data) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(data);
+            }
+        });
+    });
 };
 
 var getInstances = function (credentials) {
@@ -66,5 +104,6 @@ function toInstance(instanceData) {
 
 module.exports = {
     validateCredentials: validateCredentials,
-    getInstances: getInstances
+    getInstances: getInstances,
+    tagInstance: tagInstance
 };

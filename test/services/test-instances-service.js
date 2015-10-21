@@ -21,7 +21,7 @@ describe('InstancesService', function () {
 				region: 'eu-west-1'
 			})).save();
 
-			yield instancesService.saveInstanceAsManaged('manageThis', 'managedTeam', 'x@orgs.bash');
+			yield instancesService.manageInstance('manageThis', 'managedTeam', 'x@orgs.bash');
 
 			let managedInstance = yield Instance.findOne({ 'instanceId': 'manageThis', 'teamId': 'managedTeam' }, 'instanceId isManaged registeredBy registeredAt').exec();
 			expect(managedInstance.registeredBy).to.equal('x@orgs.bash');

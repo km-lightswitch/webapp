@@ -6,17 +6,22 @@ var Instance = require('../models/instance');
 var Schedule = require('../models/schedule');
 
 class InstancesService {
-	
-	* saveInstanceAsManaged(instanceId, teamId, registeredBy) {
-		let instance = yield Instance.findOne({'instanceId': instanceId, 'teamId': teamId});
 
-		instance.isManaged = true;
-		instance.registeredBy = registeredBy;
-		instance.registeredAt = new Date();
-		
-		return instance.save();
-	}	
-	
+	* manageInstance(instanceId, region, teamId, registeredBy) {
+		let instance = Instance({
+			instanceId: instanceId,
+			region: region,
+			teamId: teamId,
+			registeredBy: registeredBy
+		})
+
+		return yield instance.save();
+	}
+
+	* getManagedInstances(teamId) {
+		return yield Instance.find({ teamId: teamId }).exec();
+	}
+
 	* getInstanceSchedules() {
 		let instanceData = yield Instance.find({}, 'instanceId teamId schedule').exec();
 		return _.map(instanceData, (instance) => {
@@ -25,9 +30,9 @@ class InstancesService {
 				teamId: instance.teamId,
 				schedule: new Schedule(instance.instanceId, instance.schedule)
 			};
-		}); 
+		});
 	}
-	
+
 	* getInstanceStateChangeEvents(atTime, nextMinutes) {
 		let instanceSchedules = yield this.getInstanceSchedules();
 		let stateChangeEvents = _.map(instanceSchedules, (instanceSchedule) => {
@@ -43,10 +48,10 @@ class InstancesService {
 				return undefined;
 			}
 		});
-		
-		return _.compact(stateChangeEvents); 
+
+		return _.compact(stateChangeEvents);
 	}
-	
+
 }
 
 module.exports = new InstancesService();
