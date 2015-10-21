@@ -12,7 +12,7 @@ class TeamController {
 			.then((data) => {
 				this.teams = data;
 				if (this.teams.length > 0) {
-					this.selectTeam(this.teams[0].name);
+					this.selectTeam(this.teams[0]);
 				}
 			});
 	}
@@ -28,8 +28,8 @@ class TeamController {
 			});
 	}
 
-	deleteTeam(name) {
-		var team = this.getTeamByName(name);
+	deleteTeam(teamName) {
+		var team  = this.getTeamByName(teamName);
 		this.teamService.deleteTeam(team)
 			.then((data) => {
 				_.remove(this.teams, team);
@@ -45,16 +45,26 @@ class TeamController {
 		})
 	}
 
-	selectTeam(name) {
-		this.selectedTeam = this.getTeamByName(name);
-		this.fetchCredentials();
+	selectTeamByName(name) {
+		if (!name)
+			return;
+		this.selectTeam(this.getTeamByName(name));
+	}
+
+	selectTeam(team) {
+		if (!team)
+			return;
+		this.selectedTeam = team;
+		this.fetchCredentials(this.selectedTeam);
 		if (!this.selectedTeam.accessKeyId) {
 			this.showEditCredentialView = true;
 		}
 	}
 
-	fetchCredentials() {
-		this.teamService.getCredentials(this.selectedTeam)
+	fetchCredentials(team) {
+		if (!team)
+			return;
+		this.teamService.getCredentials(team)
 			.then((data) => {
 				this.selectedTeam.accessKeyId = data.accessKeyId;
 				this.showEditCredentialView = false;

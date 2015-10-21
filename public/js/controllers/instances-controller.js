@@ -12,16 +12,35 @@ class InstancesController {
 			this.teams = this.teams.concat(data);
 			this.currentTeam = this.teams[0].name;
 			this.fetchInstances(this.currentTeam);
+		});
+
+		$scope.$watch('teamController.selectedTeam', (selectedTeam) => {
+			if (!selectedTeam) return;
+			this.fetchInstances(selectedTeam.name);
 		})
 	}
 
 	fetchInstances(teamName) {
+		if (!teamName)
+			return;
+
 		this.instanceService.getInstances(teamName).then((data) => {
 			this.instances = data;
-		}).catch(()=>{
+		}).catch(() => {
 			this.instances = [];
 		});
 	}
+
+	// getManagedInstances(teamName) {
+	// 	if (!teamName)
+	// 		return;
+			
+	// 	this.instanceService.getInstances(teamName).then((data) => {
+	// 		this.instances = data;
+	// 	}).catch(() => {
+	// 		this.instances = [];
+	// 	});
+	// }
 
 	getSelectedInstances() {
 		return _.filter(this.instances, (instance) => {

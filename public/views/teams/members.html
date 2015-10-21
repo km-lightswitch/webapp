@@ -1,0 +1,18 @@
+<div>
+	<div class="title"> Members:</div>
+	<div class="row">
+		Add member:
+		<input type="email" ng-model="teamController.newMember" />
+		<a ng-class="(teamController.newMember.length > 0) ? 'btn btn-primary' : 'btn btn-primary disabled'" ng-click="teamController.addMember()">Add</a>
+	</div>
+	<table class="table table-striped col-sm-10">
+		<tr class="repeated-item" ng-repeat="member in teamController.selectedTeam.members">
+			<td>{{ member }}</td>
+			<td class="col-sm-2 text-right">
+				<a class="btn" ng-click="teamController.removeMember(member)">
+					<span class="glyphicon glyphicon-remove"></span>
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>

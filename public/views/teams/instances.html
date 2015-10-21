@@ -1,0 +1,11 @@
+<div>
+	<div class="title"> Instances:</div>
+	<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
+		<div ng-init="instancesController.fetchInstances(teamController.selectedTeam.name)">
+			Managed instances:
+			<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
+				<td>{{ instance.instanceId }}</td>
+			</tr>
+		</div>
+	</table>
+</div>

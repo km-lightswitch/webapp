@@ -12,7 +12,21 @@ class instanceService {
 		return this.$q((resolve, reject) => {
 			this.$http({
 				method: 'GET',
-				url: '/api/instances/' + teamName
+				url: '/api/instances/' + teamName 
+			}).then((response) => {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not get instances - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+	
+	discoverInstances(teamName) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'GET',
+				url: '/api/instances/' + teamName + '/discover'
 			}).then((response) => {
 				var data = _.map(response.data, this.extractNameFromTag);
 				data = _.map(data, this.extractEnvironmentFromTag);
