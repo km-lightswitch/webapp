@@ -1,15 +1,19 @@
 <div>
 	<div class="title"> Instances:</div>
-	<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
-		<div ng-init="instancesController.fetchInstances(teamController.selectedTeam.name)">
-			Managed instances:
+	<div ng-init="instancesController.fetchInstances(teamController.selectedTeam.name)">
+		Managed instances:
+		<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
+
 			<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
 				<td>{{ instance.instanceId }}</td>
-				<td><a class="btn btn-warn">Unmanage</a></td>
+				<td><a class="btn btn-warning">Unmanage</a></td>
 			</tr>
-		</div>
-		<div ng-init="instancesController.fetchUnmanagedInstances(teamController.selectedTeam.name)">
-			Unmanaged instances:
+		</table>
+	</div>
+
+	<div ng-init="instancesController.fetchUnmanagedInstances(teamController.selectedTeam.name)">
+		Unmanaged instances:
+		<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
 			<tr>
 				<th>Instance ID</th>
 				<th>Name</th>
@@ -20,8 +24,10 @@
 				<td>{{ instance.InstanceId }}</td>
 				<td>{{ instance.Name }}</td>
 				<td class="col-sm-2">{{ instance.Environment }}</td>
-				<td class="col-sm-2"><a class="btn btn-primary" ng-click="instancesController.manageInstance(instance)">Manage</a></td>
+				<td class="col-sm-2">
+					<a class="btn btn-primary" ng-click="instancesController.manageInstance(teamController.selectedTeam.name, instance)">Manage</a>
+				</td>
 			</tr>
-		</div>
-	</table>
+		</table>
+	</div>
 </div>

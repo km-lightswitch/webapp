@@ -37,8 +37,8 @@ class InstancesController {
 			return;
 
 		this.instanceService.discoverInstances(teamName).then((data) => {
-			this.unmanagedInstances =_.filter(data, (instance)=>{
-				return !_.contains(this.instances,instance)
+			this.unmanagedInstances = _.filter(data, (instance) => {
+				return !_.some(this.instances, 'instanceId', instance.InstanceId);
 			});
 		}).catch(() => {
 			this.unmanagedInstances = [];
@@ -75,6 +75,13 @@ class InstancesController {
 			return instance;
 		});
 		this.instances = updatedInstances;
+	}
+
+	manageInstance(teamName, instance) {
+		this.instanceService.manageInstance(teamName, instance).then(() => {
+			this.fetchManagedInstances(teamName);
+			this.fetchUnmanagedInstances(teamName);
+		})
 	}
 }
 

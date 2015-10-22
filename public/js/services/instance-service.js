@@ -12,7 +12,7 @@ class instanceService {
 		return this.$q((resolve, reject) => {
 			this.$http({
 				method: 'GET',
-				url: '/api/instances/' + teamName 
+				url: '/api/instances/' + teamName
 			}).then((response) => {
 				resolve(response.data);
 			}, function errorCallback(response) {
@@ -21,7 +21,7 @@ class instanceService {
 			});
 		});
 	}
-	
+
 	discoverInstances(teamName) {
 		return this.$q((resolve, reject) => {
 			this.$http({
@@ -33,6 +33,21 @@ class instanceService {
 				resolve(data);
 			}, function errorCallback(response) {
 				console.log('Could not get instances - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+
+	manageInstance(teamName, instance) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'POST',
+				url: '/api/instances/' + teamName + '/manage',
+				data: { region: instance.AvailabilityZone, instances: [instance.InstanceId] }
+			}).then((response) => {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not add instances to managed instances - ' + response.data);
 				reject(response.data);
 			});
 		});
@@ -72,15 +87,19 @@ class instanceService {
 		var nameTag = _.find(instance.Tags, (tag) => {
 			return tag.Name !== undefined;
 		})
-		instance.Name = nameTag.Name;
+		if (nameTag) {
+			instance.Name = nameTag.Name;
+		}
 		return instance;
 	}
 
 	extractEnvironmentFromTag(instance) {
-		var nameTag = _.find(instance.Tags, (tag) => {
+		var environmentTag = _.find(instance.Tags, (tag) => {
 			return tag.env !== undefined;
 		})
-		instance.Environment = nameTag.env;
+		if (environmentTag) {
+			instance.Environment = environmentTag.env;
+		}
 		return instance;
 	}
 }
