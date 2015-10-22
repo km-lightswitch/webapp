@@ -5,6 +5,22 @@
 			Managed instances:
 			<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
 				<td>{{ instance.instanceId }}</td>
+				<td><a class="btn btn-warn">Unmanage</a></td>
+			</tr>
+		</div>
+		<div ng-init="instancesController.fetchUnmanagedInstances(teamController.selectedTeam.name)">
+			Unmanaged instances:
+			<tr>
+				<th>Instance ID</th>
+				<th>Name</th>
+				<th class="col-sm-2">Environment</th>
+				<th></th>
+			</tr>
+			<tr class="repeated-item" ng-repeat="instance in instancesController.unmanagedInstances">
+				<td>{{ instance.InstanceId }}</td>
+				<td>{{ instance.Name }}</td>
+				<td class="col-sm-2">{{ instance.Environment }}</td>
+				<td class="col-sm-2"><a class="btn btn-primary" ng-click="instancesController.manageInstance(instance)">Manage</a></td>
 			</tr>
 		</div>
 	</table>

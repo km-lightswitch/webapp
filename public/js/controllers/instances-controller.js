@@ -11,16 +11,17 @@ class InstancesController {
 		teamService.getTeams().then((data) => {
 			this.teams = this.teams.concat(data);
 			this.currentTeam = this.teams[0].name;
-			this.fetchInstances(this.currentTeam);
+			this.fetchManagedInstances(this.currentTeam);
 		});
 
 		$scope.$watch('teamController.selectedTeam', (selectedTeam) => {
 			if (!selectedTeam) return;
-			this.fetchInstances(selectedTeam.name);
+			this.fetchManagedInstances(selectedTeam.name);
+			this.fetchUnmanagedInstances(selectedTeam.name);
 		})
 	}
 
-	fetchInstances(teamName) {
+	fetchManagedInstances(teamName) {
 		if (!teamName)
 			return;
 
@@ -31,26 +32,22 @@ class InstancesController {
 		});
 	}
 
-	// getManagedInstances(teamName) {
-	// 	if (!teamName)
-	// 		return;
-			
-	// 	this.instanceService.getInstances(teamName).then((data) => {
-	// 		this.instances = data;
-	// 	}).catch(() => {
-	// 		this.instances = [];
-	// 	});
-	// }
+	fetchUnmanagedInstances(teamName) {
+		if (!teamName)
+			return;
+
+		this.instanceService.discoverInstances(teamName).then((data) => {
+			this.unmanagedInstances =_.filter(data, (instance)=>{
+				return !_.contains(this.instances,instance)
+			});
+		}).catch(() => {
+			this.unmanagedInstances = [];
+		});
+	}
 
 	getSelectedInstances() {
 		return _.filter(this.instances, (instance) => {
 			return instance.team === this.currentTeam && instance.isSelected;
-		});
-	}
-
-	getInstancesInCurrentTeam() {
-		return _.filter(this.instances, (instance) => {
-			return instance.team === this.currentTeam;
 		});
 	}
 
@@ -73,7 +70,7 @@ class InstancesController {
 	}
 
 	toggleSelection() {
-		var updatedInstances = _.map(this.getInstancesInCurrentTeam(), (instance) => {
+		var updatedInstances = _.map(this.instances, (instance) => {
 			instance.isSelected = this.selectAll;
 			return instance;
 		});

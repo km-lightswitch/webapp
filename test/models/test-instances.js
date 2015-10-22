@@ -26,11 +26,13 @@ var myInstance = {
 
 describe('Instance', function () {
 	describe('#save', function () {
-		it("saves a 'fully-formed' instance", function () {
+		it("saves a 'fully-formed' instance", function* () {
 			var instance = new Instance(myInstance);
-			instance.save().then(function (saved) {
-				expect(saved.id).not.to.be.null;
-			});
+			var savedInstance = yield function* () {
+				return yield instance.save();
+			}
+			expect(savedInstance.id).not.to.be.null;
+
 		});
 	})
 });

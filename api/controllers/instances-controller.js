@@ -22,7 +22,6 @@ class InstancesController {
 				this.status = 400;
 			}
 		}
-		return;
 	}
 
 	* manageInstances(next) {
