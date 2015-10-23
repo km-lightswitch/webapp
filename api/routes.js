@@ -11,6 +11,7 @@ var instancesRoutes = new Router();
 instancesRoutes.get('/:teamName', instancesController.getManagedInstances);
 instancesRoutes.get('/:teamName/discover', instancesController.discoverInstances);
 instancesRoutes.post('/:teamName/manage', instancesController.manageInstances);
+instancesRoutes.put('/:teamName/unmanage', instancesController.unmanageInstances);
 instancesRoutes.post('/start', instancesController.startInstances);
 instancesRoutes.post('/stop', instancesController.stopInstances);
 

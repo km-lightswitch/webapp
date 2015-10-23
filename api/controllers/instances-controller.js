@@ -24,6 +24,20 @@ class InstancesController {
 		}
 	}
 
+	* unmanageInstances(next) {
+		let instances = this.request.body.instances;
+		let owner = this.passport.user.email;
+		let teamName = this.params.teamName;
+		let team = yield teamService.getTeamByName(owner, teamName);
+
+		var i = 0
+		var len = instances.length;
+		while (i < len) {
+			yield instancesService.unmanageInstance(instances[i++], team.id);
+		}
+		this.status = 200;
+	}
+
 	* manageInstances(next) {
 		let instances = this.request.body.instances;
 		let region = this.request.body.region;

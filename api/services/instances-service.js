@@ -8,6 +8,10 @@ var Schedule = require('../models/schedule');
 class InstancesService {
 
 	* manageInstance(instanceId, region, teamId, registeredBy) {
+		var exisitingInstance = yield this.getManagedInstance(instanceId, teamId);
+		if (exisitingInstance)
+			return;
+
 		let instance = Instance({
 			instanceId: instanceId,
 			region: region,
@@ -16,6 +20,18 @@ class InstancesService {
 		})
 
 		return yield instance.save();
+	}
+
+	* unmanageInstance(instanceId, teamId) {
+		var exisitingInstance = yield this.getManagedInstance(instanceId, teamId);
+		if (!exisitingInstance)
+			return;
+
+		return yield exisitingInstance.remove();
+	}
+
+	* getManagedInstance(instanceId, teamId) {
+		return yield Instance.findOne({ teamId: teamId, instanceId: instanceId }).exec();
 	}
 
 	* getManagedInstances(teamId) {

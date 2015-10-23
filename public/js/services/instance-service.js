@@ -53,6 +53,21 @@ class instanceService {
 		});
 	}
 
+	unmanageInstance(teamName, instance) {
+		return this.$q((resolve, reject) => {
+			this.$http({
+				method: 'PUT',
+				url: '/api/instances/' + teamName + '/unmanage',
+				data: { instances: [instance.instanceId] }
+			}).then((response) => {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				console.log('Could not remove instances from managed instances - ' + response.data);
+				reject(response.data);
+			});
+		});
+	}
+
 	startInstances(instances) {
 		return this.$q((resolve, reject) => {
 			this.$http({

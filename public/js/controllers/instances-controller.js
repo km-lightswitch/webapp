@@ -11,13 +11,15 @@ class InstancesController {
 		teamService.getTeams().then((data) => {
 			this.teams = this.teams.concat(data);
 			this.currentTeam = this.teams[0].name;
-			this.fetchManagedInstances(this.currentTeam);
+			if (this.instances.length === 0) {
+				this.fetchManagedInstances(this.currentTeam);
+			}
 		});
 
 		$scope.$watch('teamController.selectedTeam', (selectedTeam) => {
-			if (!selectedTeam) return;
-			this.fetchManagedInstances(selectedTeam.name);
-			this.fetchUnmanagedInstances(selectedTeam.name);
+			if (selectedTeam) {
+				this.reloadInstances(selectedTeam.name);
+			}
 		})
 	}
 
@@ -77,10 +79,20 @@ class InstancesController {
 		this.instances = updatedInstances;
 	}
 
+	reloadInstances(teamName) {
+		this.fetchManagedInstances(teamName);
+		this.fetchUnmanagedInstances(teamName);
+	}
+
 	manageInstance(teamName, instance) {
 		this.instanceService.manageInstance(teamName, instance).then(() => {
-			this.fetchManagedInstances(teamName);
-			this.fetchUnmanagedInstances(teamName);
+			this.reloadInstances(teamName);
+		})
+	}
+
+	unmanageInstance(teamName, instance) {
+		this.instanceService.unmanageInstance(teamName, instance).then(() => {
+			this.reloadInstances(teamName);
 		})
 	}
 }

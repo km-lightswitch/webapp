@@ -1,30 +1,33 @@
-<div>
-	<div class="title"> Instances:</div>
+<div ng-controller="InstancesController as instancesController">
+	<div class="title"> Managed Instances:</div>
 	<div ng-init="instancesController.fetchInstances(teamController.selectedTeam.name)">
-		Managed instances:
-		<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
-
+		<table class="table table-striped col-sm-10">
 			<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
 				<td>{{ instance.instanceId }}</td>
-				<td><a class="btn btn-warning">Unmanage</a></td>
+				<td>{{ instance.region }}</td>
+				<td class="col-sm-2 text-right">
+					<a class="btn btn-warning" ng-click="instancesController.unmanageInstance(teamController.selectedTeam.name, instance)">Unmanage</a>
+				</td>
 			</tr>
 		</table>
 	</div>
 
+	<div class="title"> Unmanaged Instances:</div>
 	<div ng-init="instancesController.fetchUnmanagedInstances(teamController.selectedTeam.name)">
-		Unmanaged instances:
-		<table class="table table-striped col-sm-10" ng-controller="InstancesController as instancesController">
+		<table class="table table-striped col-sm-10">
 			<tr>
 				<th>Instance ID</th>
+				<th>Region</th>
 				<th>Name</th>
 				<th class="col-sm-2">Environment</th>
 				<th></th>
 			</tr>
 			<tr class="repeated-item" ng-repeat="instance in instancesController.unmanagedInstances">
 				<td>{{ instance.InstanceId }}</td>
+				<td>{{ instance.AvailabilityZone }}</td>
 				<td>{{ instance.Name }}</td>
 				<td class="col-sm-2">{{ instance.Environment }}</td>
-				<td class="col-sm-2">
+				<td class="col-sm-2 text-right">
 					<a class="btn btn-primary" ng-click="instancesController.manageInstance(teamController.selectedTeam.name, instance)">Manage</a>
 				</td>
 			</tr>
