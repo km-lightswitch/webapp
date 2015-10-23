@@ -1,9 +1,16 @@
 <div ng-controller="InstancesController as instancesController" class="container">
-	<div class="teams col-sm-3 col-sm-offset-9 text-right">
+	<div class="teams col-sm-6 col-sm-offset-6 text-right">
 		<strong>Team:</strong>
-		<select ng-model="instancesController.currentTeam" ng-change="instancesController.fetchInstances(instancesController.currentTeam)" class="form-control select">
+		<select ng-model="instancesController.currentTeam" ng-change="instancesController.fetchInstances(instancesController.currentTeam)"
+		class="form-control select">
 			<option ng-repeat="team in instancesController.teams" value="{{ team.name }}">
 				{{ team.name }}
+			</option>
+		</select>
+		<strong>Region:</strong>
+		<select ng-model="instancesController.currentRegion" class="form-control select">
+			<option ng-repeat="region in instancesController.regions" value="{{ region }}">
+				{{ region }}
 			</option>
 		</select>
 	</div>
@@ -14,15 +21,17 @@
 				/>
 			</th>
 			<th>Instance ID</th>
+			<th>Region</th>
 			<th>Name</th>
 			<th class="col-sm-2">Environment</th>
 			<th class="col-sm-1">State</th>
 		</tr>
-		<tr class="repeated-item" ng-repeat="instance in instancesController.instances">
+		<tr class="repeated-item" ng-repeat="instance in instancesController.instances | filter: instancesController.currentRegion">
 			<td class="col-sm-1">
 				<input type="checkbox" class="checkbox" ng-model="instance.isSelected" />
 			</td>
-			<td>{{ instance.InstanceId }}</td>
+			<td>{{ instance.instanceId }}</td>
+			<td>{{ instance.region }}</td>
 			<td>{{ instance.Name }}</td>
 			<td class="col-sm-2">{{ instance.Environment }}</td>
 			<td class="col-sm-1 status {{ instance.State }}">{{ instance.State }}</td>

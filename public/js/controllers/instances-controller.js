@@ -7,12 +7,13 @@ class InstancesController {
 		this.instances = [];
 		this.instanceService = instanceService;
 		this.teams = [];
+		this.regions = ["eu-west-1a", "eu-west-1b", "eu-west-2a", "eu-west-2b"];
 
 		teamService.getTeams().then((data) => {
 			this.teams = this.teams.concat(data);
 			this.currentTeam = this.teams[0].name;
 			if (this.instances.length === 0) {
-				this.fetchManagedInstances(this.currentTeam);
+				this.reloadInstances(this.currentTeam);
 			}
 		});
 
@@ -39,12 +40,25 @@ class InstancesController {
 			return;
 
 		this.instanceService.discoverInstances(teamName).then((data) => {
+			this.decorateManagedInstances(data);
 			this.unmanagedInstances = _.filter(data, (instance) => {
-				return !_.some(this.instances, 'instanceId', instance.InstanceId);
+				return !_.some(this.instances, 'InstanceId', instance.InstanceId);
 			});
 		}).catch(() => {
 			this.unmanagedInstances = [];
 		});
+	}
+
+	decorateManagedInstances(instancesWithMetadata) {
+		for (var index = 0; index < this.instances.length; index++) {
+			var instance = this.instances[index];
+			var instanceWithTags = _.find(instancesWithMetadata, 'InstanceId', instance.instanceId);
+			this.instances[index].InstanceId = instanceWithTags.InstanceId;
+			this.instances[index].AvailabilityZone = instanceWithTags.AvailabilityZone;
+			this.instances[index].Name = instanceWithTags.Name;
+			this.instances[index].Environment = instanceWithTags.Environment;
+			this.instances[index].State = instanceWithTags.State;
+		}
 	}
 
 	getSelectedInstances() {
