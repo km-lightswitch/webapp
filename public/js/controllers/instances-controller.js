@@ -53,11 +53,13 @@ class InstancesController {
 		for (var index = 0; index < this.instances.length; index++) {
 			var instance = this.instances[index];
 			var instanceWithTags = _.find(instancesWithMetadata, 'InstanceId', instance.instanceId);
-			this.instances[index].InstanceId = instanceWithTags.InstanceId;
-			this.instances[index].AvailabilityZone = instanceWithTags.AvailabilityZone;
-			this.instances[index].Name = instanceWithTags.Name;
-			this.instances[index].Environment = instanceWithTags.Environment;
-			this.instances[index].State = instanceWithTags.State;
+			if (instanceWithTags) {
+				this.instances[index].InstanceId = instanceWithTags.InstanceId;
+				this.instances[index].AvailabilityZone = instanceWithTags.AvailabilityZone;
+				this.instances[index].Name = instanceWithTags.Name;
+				this.instances[index].Environment = instanceWithTags.Environment;
+				this.instances[index].State = instanceWithTags.State;
+			}
 		}
 	}
 

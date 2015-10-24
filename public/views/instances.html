@@ -9,6 +9,7 @@
 		</select>
 		<strong>Region:</strong>
 		<select ng-model="instancesController.currentRegion" class="form-control select">
+			<option value="">All</option>
 			<option ng-repeat="region in instancesController.regions" value="{{ region }}">
 				{{ region }}
 			</option>

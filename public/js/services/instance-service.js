@@ -58,7 +58,7 @@ class instanceService {
 			this.$http({
 				method: 'PUT',
 				url: '/api/instances/' + teamName + '/unmanage',
-				data: { instances: [instance.InstanceId] }
+				data: { instances: [instance.instanceId] }
 			}).then((response) => {
 				resolve(response.data);
 			}, function errorCallback(response) {

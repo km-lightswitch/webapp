@@ -7,11 +7,6 @@
 		"port": 27017,
 		"database": "lightswitch"
 	},
-	"credentials": {
-		"accessKeyId": "aki",
-		"secretAccessKey": "sak",
-		"region": "eu-west-1"
-	},
 	"google": {
 		"clientId": "google.client.id",
 		"clientSecret": "google.client.secret",

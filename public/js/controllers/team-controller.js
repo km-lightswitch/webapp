@@ -102,8 +102,7 @@ class TeamController {
 			.then(() => {
 				this.accessKeyId = null;
 				this.secretAccessKey = null;
-				this.showEditCredentialView = false;
-				this.fetchCredentials();
+				this.fetchCredentials(this.selectedTeam);
 			})
 	}
 }
