@@ -10,6 +10,10 @@ var NavbarController = require('./controllers/navbar-controller')
 var UserController = require('./controllers/user-controller')
 var InstancesController = require('./controllers/instances-controller')
 var TeamController = require('./controllers/team-controller')
+var ScheduleController = require('./controllers/schedule-controller')
+
+var RangeDirective = require('./directives/range').RangeDirective;
+var RangeController = require('./directives/range').RangeController;
 
 var app = angular.module('lightswitch', ['ngRoute', 'ngAnimate']);
 
@@ -21,6 +25,11 @@ app.controller('UserController', UserController);
 app.controller('NavbarController', NavbarController);
 app.controller('InstancesController', InstancesController);
 app.controller('TeamController', TeamController);
+app.controller('ScheduleController', ScheduleController);
+
+app.controller('RangeController', RangeController);
+
+app.directive('range', RangeDirective);
 
 app.config(['$routeProvider',
 	function ($routeProvider) {

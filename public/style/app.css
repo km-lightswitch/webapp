@@ -94,3 +94,28 @@ input{
 .glyphicon-trash{
 	color:orange;
 }
+
+.uptime{
+	background: lightgreen;
+}
+
+.downtime{
+	background: lightsalmon;
+}
+
+#range{
+	width: 100px;
+	height: 20px;
+	display: inline-block;
+	position: absolute;
+	cursor: pointer;
+}
+		
+#start, #end {
+	display: inline-block;
+	width: 10px;
+	height: 20px;
+	background: gray;
+	position: absolute;
+	cursor: ew-resize;
+}
