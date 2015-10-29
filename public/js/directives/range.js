@@ -8,8 +8,6 @@ var RangeDirective = function ($document) {
 			class: '='
 		},
 		controller: 'RangeController as rangeController',
-		link: function (scope, element, attr) {
-		}
 	};
 }
 
@@ -24,12 +22,7 @@ class RangeController {
 
 		this.setLeft(0);
 
-		$document.on('mousemove', (ev) => {
-			ev.preventDefault();
-			this.divMove(ev);
-		});
 		$document.on('mouseup', (ev) => {
-			ev.preventDefault();
 			this.mouseUp(ev);
 		});
 	}
@@ -48,10 +41,13 @@ class RangeController {
 		this.delta = (ev.clientX - this.x);
 		this.x = ev.clientX;
 		var width = this.width;
+		var left = this.left;
 
+		if (left + this.delta < 0)
+			return;
 
 		if (this.handle.id === 'range') {
-			this.left += this.delta;
+			left += this.delta;
 		}
 
 		if (this.handle.id === 'end') {
@@ -65,14 +61,12 @@ class RangeController {
 			let newWidth = this.width - this.delta;
 			if (newWidth > 10) {
 				width = newWidth
-				this.left += this.delta;
+				left += this.delta;
 			}
 		}
 
-		this.scope.$apply(() => {
-			this.width = width;
-			this.setLeft(this.left);
-		});
+		this.width = width;
+		this.setLeft(left);
 	}
 
 	mouseDown(ev) {

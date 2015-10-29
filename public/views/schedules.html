@@ -41,12 +41,12 @@
 			</tr>
 			<tr ng-repeat="day in scheduleController.weekdays">
 				<th>{{ day }}</th>
-				<td>
-					<range ng-show="scheduleController.schedule.schedules[day][0]" 
+				<td colspan="12">
+					<div range ng-show="scheduleController.schedule.schedules[day][0]" 
 					class="scheduleController.schedule.nature" 
 					start="scheduleController.schedule.schedules[day][0].start" 
 					end="scheduleController.schedule.schedules[day][0].end">
-					</range>
+					</div>
 				</td>
 			</tr>
 

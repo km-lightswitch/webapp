@@ -1,6 +1,6 @@
-<div>
+<span class="range-container" ng-mousemove="rangeController.divMove($event)">
 	<div id="start" ng-style="{left: rangeController.left + 'px'}" ng-mousedown="rangeController.mouseDown($event)"></div>
 	<div id="range" ng-style="{left: rangeController.rangeLeft +'px', width: rangeController.width + 'px'}" ng-class="class"
 	ng-mousedown="rangeController.mouseDown($event)"></div>
 	<div id="end" ng-style="{left: rangeController.endLeft + 'px'}" ng-mousedown="rangeController.mouseDown($event)"></div>
-</div>
+</span>
