@@ -8,8 +8,8 @@ var Schedule = require('../models/schedule');
 class InstancesService {
 
 	* manageInstance(instanceId, region, teamId, registeredBy) {
-		var exisitingInstance = yield this.getManagedInstance(instanceId, teamId);
-		if (exisitingInstance)
+		var existingInstance = yield this.getManagedInstance(instanceId, teamId);
+		if (existingInstance)
 			return;
 
 		let instance = Instance({

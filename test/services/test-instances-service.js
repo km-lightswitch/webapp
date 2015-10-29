@@ -18,10 +18,13 @@ describe('InstancesService', function () {
 			let instance = yield (Instance({
 				instanceId: 'manageThis',
 				teamId: 'managedTeam',
-				region: 'eu-west-1'
-			})).save();
+				region: 'eu-west-1',
+				registeredBy: 'x@orgs.bash'
+			})).save(function(err) {
+				if (err) console.log(err);
+			});
 
-			yield instancesService.manageInstance('manageThis', 'managedTeam', 'x@orgs.bash');
+			yield instancesService.manageInstance('manageThis', 'eu-west-1', 'managedTeam', 'x@orgs.bash');
 
 			let managedInstance = yield Instance.findOne({ 'instanceId': 'manageThis', 'teamId': 'managedTeam' }, 'instanceId isManaged registeredBy registeredAt').exec();
 			expect(managedInstance.registeredBy).to.equal('x@orgs.bash');

@@ -1,11 +1,14 @@
 process.env.NODE_ENV = 'test';
 var expect = require('chai').expect;
 
+var db = require('../../api/db');
+
 var Instance = require('../../api/models/instance.js');
 
 var myInstance = {
 	"instanceId": "i-ab123456",
 	"teamId": "5614ba3de23bd3bbccc68671",
+	"region": "eu-west-1",
 	"registeredBy": "5614ba27e23bd3bbccc68670",
 	"schedule": {
 		"name": "WEEKLY_UPTIME",
@@ -25,14 +28,28 @@ var myInstance = {
 }
 
 describe('Instance', function () {
+	let mongoose;
+	beforeEach(function() {
+		mongoose = db.connect();
+		mongoose.connection.collections['instances'].drop();
+	})
+	
 	describe('#save', function () {
 		it("saves a 'fully-formed' instance", function* () {
-			var instance = new Instance(myInstance);
-			var savedInstance = yield function* () {
-				return yield instance.save();
-			}
-			expect(savedInstance.id).not.to.be.null;
-
+			
+				var savedInstance = function* () {
+					yield (Instance(myInstance)).save(function(err) {
+						console.log(err);
+					});
+				};
+				
+			let instance = savedInstance();
+			expect(instance.id).not.to.be.null;
 		});
+	})
+	
+	afterEach(function() {
+		mongoose.connection.collections['instances'].drop();
+		mongoose.connection.close();
 	})
 });
