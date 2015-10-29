@@ -22,11 +22,7 @@
               "ec2:StartInstances",
               "ec2:StopInstances"
             ],
-            "Resource": [{
-              "Fn::Join": [":", ["arn:aws:ec2:*", {
-                "Ref": "AWS::AccountId"
-              }, "*"]]
-            }]
+            "Resource": ["*"]
           }]
         }
       }
